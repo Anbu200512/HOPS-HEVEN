@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Beers | Hops Haven</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ['Playfair Display', 'serif'],
+            body: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            amber: {
+              50: '#fefaf0',
+              100: '#fdf3d7',
+              700: '#b45309',
+              800: '#92400e',
+              900: '#78350f',
+            },
+            stone: {
+              800: '#292524',
+              900: '#1c1917',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    h1, h2, h3, h4, h5, h6 { font-family: 'Playfair Display', Georgia, serif; }
+  </style>
+</head>
+<body class="bg-amber-50 dark:bg-stone-900 dark:text-gray-100 min-h-screen flex flex-col font-body pt-16">
+  <script src="js/theme.js"></script>
+  <script src="js/rtl.js"></script>
+  <script src="js/navbar.js"></script>
+
+  <main class="flex-1">
+
+    <!-- HERO -->
+    <section class="relative bg-stone-900 text-white min-h-[70vh] flex items-center overflow-hidden">
+      <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('assets/beers-hero.jpg');"></div>
+      <div class="absolute inset-0 bg-gradient-to-br from-stone-900/85 via-stone-900/75 to-amber-950/70"></div>
+      <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-20">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <span class="text-amber-400 uppercase tracking-[0.2em] text-sm font-medium block">Our Beers</span>
+            <h1 class="text-5xl md:text-6xl lg:text-7xl font-medium text-amber-100 font-heading leading-tight mt-4">What's On <span class="text-amber-400">Tap</span></h1>
+            <p class="text-lg md:text-xl text-gray-300 max-w-xl font-normal leading-relaxed mt-6">From hazy IPAs to barrel-aged stouts � explore the full lineup of what's brewing, pouring, and ready for you to discover.</p>
+          </div>
+          <div class="hidden md:flex justify-center">
+            <div class="relative">
+              <div class="absolute -inset-6 bg-amber-500/10 rounded-full blur-3xl"></div>
+              <div class="bg-white/5 backdrop-blur-sm border border-amber-500/20 rounded-2xl p-6 w-72">
+                <span class="text-amber-400 text-xs uppercase tracking-wider font-medium">Featured This Week</span>
+                <div class="mt-3 flex gap-4 items-start">
+                  <img src="assets/beers-featured.jpg" class="w-20 h-20 object-cover rounded-xl">
+                  <div>
+                    <h3 class="text-lg font-medium text-amber-100 font-heading">Haven Hazy</h3>
+                    <p class="text-xs text-gray-400">New England IPA � 7.2% ABV</p>
+                    <span class="inline-block mt-2 text-xs bg-amber-700/30 text-amber-300 px-2 py-0.5 rounded">On Tap Now</span>
+                  </div>
+                </div>
+                <div class="mt-4 pt-4 border-t border-amber-500/20">
+                  <div class="flex justify-between text-xs text-gray-400">
+                    <span>IBU <span class="text-amber-300 font-medium">65</span></span>
+                    <span>SRM <span class="text-amber-300 font-medium">6</span></span>
+                    <span>OG <span class="text-amber-300 font-medium">1.068</span></span>
+                  </div>
+                  <div class="mt-3 w-full bg-stone-800 rounded-full h-1">
+                    <div class="bg-amber-500 h-1 rounded-full" style="width: 75%"></div>
+                  </div>
+                  <p class="text-[10px] text-gray-500 mt-1">Popularity � 75% of pints ordered</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BEER STATS BANNER -->
+    <section class="bg-amber-100 dark:bg-stone-950 border-y border-amber-200/50 dark:border-stone-800">
+      <div class="max-w-7xl mx-auto px-4 py-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+          <div>
+            <span class="text-3xl font-medium text-amber-800 dark:text-amber-400 font-heading">16</span>
+            <p class="text-xs text-gray-600 dark:text-gray-400 uppercase tracking-wide mt-1">Rotating Taps</p>
+          </div>
+          <div>
+            <span class="text-3xl font-medium text-amber-800 dark:text-amber-400 font-heading">6</span>
+            <p class="text-xs text-gray-600 dark:text-gray-400 uppercase tracking-wide mt-1">Core Flagships</p>
+          </div>
+          <div>
+            <span class="text-3xl font-medium text-amber-800 dark:text-amber-400 font-heading">4</span>
+            <p class="text-xs text-gray-600 dark:text-gray-400 uppercase tracking-wide mt-1">Seasonal Rotations</p>
+          </div>
+          <div>
+            <span class="text-3xl font-medium text-amber-800 dark:text-amber-400 font-heading">6</span>
+            <p class="text-xs text-gray-600 dark:text-gray-400 uppercase tracking-wide mt-1">Barrel Program</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FLAGSHIPS -->
+    <section class="py-20 px-4 max-w-7xl mx-auto">
+      <div class="mb-12">
+        <span class="text-amber-700 dark:text-amber-500 uppercase tracking-[0.2em] text-sm font-medium">Core Range</span>
+        <h2 class="text-3xl md:text-4xl font-medium text-amber-900 dark:text-amber-400 font-heading mt-2">Flagship Beers</h2>
+        <p class="text-gray-600 dark:text-gray-400 mt-2 max-w-2xl">These are the beers that define us � brewed year-round, perfected over time, and poured with pride every single day.</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white dark:bg-stone-900 rounded-2xl overflow-hidden shadow-lg border border-amber-200/30 dark:border-stone-800 hover:shadow-xl transition group">
+          <div class="overflow-hidden">
+            <img src="assets/beers-hazy.jpg" class="w-full h-56 object-cover group-hover:scale-105 transition duration-500">
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-start mb-2">
+              <div>
+                <h3 class="text-xl font-medium text-stone-800 dark:text-amber-100">Haven Hazy</h3>
+                <p class="text-xs text-amber-700 dark:text-amber-400 uppercase tracking-wider">New England IPA</p>
+              </div>
+              <span class="bg-amber-700 text-amber-50 text-xs px-2 py-1 rounded font-medium">7.2%</span>
+            </div>
+            <p class="text-sm text-gray-600 dark:text-stone-400 mt-3">Triple dry-hopped with Citra, Mosaic, and Simcoe. Bursting with passionfruit, mango, and a pillowy smooth finish.</p>
+            <div class="flex items-center gap-3 mt-4 text-xs text-gray-500 dark:text-stone-500">
+              <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-600"></span> 65 IBU</span>
+              <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-600"></span> 7.2% ABV</span>
+              <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-600"></span> 16 oz</span>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white dark:bg-stone-900 rounded-2xl overflow-hidden shadow-lg border border-amber-200/30 dark:border-stone-800 hover:shadow-xl transition group">
+          <div class="overflow-hidden">
+            <img src="assets/beers-stout.jpg" class="w-full h-56 object-cover group-hover:scale-105 transition duration-500">
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-start mb-2">
+              <div>
+                <h3 class="text-xl font-medium text-stone-800 dark:text-amber-100">Iron Forge Stout</h3>
+                <p class="text-xs text-amber-700 dark:text-amber-400 uppercase tracking-wider">Imperial Milk Stout</p>
+              </div>
+              <span class="bg-amber-700 text-amber-50 text-xs px-2 py-1 rounded font-medium">8.2%</span>
+            </div>
+            <p class="text-sm text-gray-600 dark:text-stone-400 mt-3">Rich, dark, and decadent. Brewed with local artisan coffee beans and organic cacao nibs for a velvety finish.</p>
+            <div class="flex items-center gap-3 mt-4 text-xs text-gray-500 dark:text-stone-500">
+              <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-600"></span> 35 IBU</span>
+              <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-600"></span> 8.2% ABV</span>
+              <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-600"></span> 12 oz</span>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white dark:bg-stone-900 rounded-2xl overflow-hidden shadow-lg border border-amber-200/30 dark:border-stone-800 hover:shadow-xl transition group">
+          <div class="overflow-hidden">
+            <img src="assets/beers-pilsner.jpg" class="w-full h-56 object-cover group-hover:scale-105 transition duration-500">
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-start mb-2">
+              <div>
+                <h3 class="text-xl font-medium text-stone-800 dark:text-amber-100">Timberline Crisp</h3>
+                <p class="text-xs text-amber-700 dark:text-amber-400 uppercase tracking-wider">German Pilsner</p>
+              </div>
+              <span class="bg-amber-700 text-amber-50 text-xs px-2 py-1 rounded font-medium">4.5%</span>
+            </div>
+            <p class="text-sm text-gray-600 dark:text-stone-400 mt-3">Crisp, clean, and endlessly refreshing. Delicate floral noble hop aroma with a dry, biscuity finish that keeps you coming back.</p>
+            <div class="flex items-center gap-3 mt-4 text-xs text-gray-500 dark:text-stone-500">
+              <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-600"></span> 28 IBU</span>
+              <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-600"></span> 4.5% ABV</span>
+              <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-600"></span> 16 oz</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEASONALS -->
+    <section class="py-20 px-4 bg-amber-100/60 dark:bg-stone-950">
+      <div class="max-w-7xl mx-auto">
+        <div class="mb-12">
+          <span class="text-amber-700 dark:text-amber-500 uppercase tracking-[0.2em] text-sm font-medium">Limited Release</span>
+          <h2 class="text-3xl md:text-4xl font-medium text-amber-900 dark:text-amber-400 font-heading mt-2">Seasonal Rotations</h2>
+          <p class="text-gray-600 dark:text-gray-400 mt-2 max-w-2xl">These beers chase the seasons. Available for a short window � when they're gone, they're gone until next year.</p>
+        </div>
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="bg-white dark:bg-stone-900 rounded-2xl overflow-hidden shadow-lg border border-amber-200/30 dark:border-stone-800 hover:shadow-xl transition group flex flex-col sm:flex-row">
+            <img src="assets/beers-cherrytart.jpg" class="w-full sm:w-56 h-56 object-cover group-hover:scale-105 transition duration-500">
+            <div class="p-6 flex flex-col justify-between flex-1">
+              <div>
+                <div class="flex justify-between items-start">
+                  <h3 class="text-xl font-medium text-stone-800 dark:text-amber-100">Cherry Tart</h3>
+                  <span class="bg-amber-700 text-amber-50 text-xs px-2 py-1 rounded font-medium">5.4%</span>
+                </div>
+                <p class="text-xs text-amber-700 dark:text-amber-400 uppercase tracking-wider mt-1">Kettle Sour</p>
+                <p class="text-sm text-gray-600 dark:text-stone-400 mt-3">Montmorency cherries meet vanilla bean in this brilliantly tart and fruity sour ale. Bright pink hue, crisp acidity, and a subtly sweet finish.</p>
+              </div>
+              <div class="flex items-center gap-3 mt-4 text-xs text-gray-500 dark:text-stone-500">
+                <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-600"></span> 10 IBU</span>
+                <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-600"></span> Spring Seasonal</span>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white dark:bg-stone-900 rounded-2xl overflow-hidden shadow-lg border border-amber-200/30 dark:border-stone-800 hover:shadow-xl transition group flex flex-col sm:flex-row">
+            <img src="assets/beers-smokedporter.jpg" class="w-full sm:w-56 h-56 object-cover group-hover:scale-105 transition duration-500">
+            <div class="p-6 flex flex-col justify-between flex-1">
+              <div>
+                <div class="flex justify-between items-start">
+                  <h3 class="text-xl font-medium text-stone-800 dark:text-amber-100">Smoked Porter</h3>
+                  <span class="bg-amber-700 text-amber-50 text-xs px-2 py-1 rounded font-medium">6.5%</span>
+                </div>
+                <p class="text-xs text-amber-700 dark:text-amber-400 uppercase tracking-wider mt-1">Smoked Ale</p>
+                <p class="text-sm text-gray-600 dark:text-stone-400 mt-3">Beechwood-smoked malt delivers an unmistakable campfire character. Layered with dark chocolate, toasted oak, and a whisper of bourbon vanilla.</p>
+              </div>
+              <div class="flex items-center gap-3 mt-4 text-xs text-gray-500 dark:text-stone-500">
+                <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-600"></span> 30 IBU</span>
+                <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-600"></span> Fall/Winter Seasonal</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BARREL PROGRAM -->
+    <section class="py-20 px-4 max-w-7xl mx-auto">
+      <div class="mb-12">
+        <span class="text-amber-700 dark:text-amber-500 uppercase tracking-[0.2em] text-sm font-medium">The Cellar</span>
+        <h2 class="text-3xl md:text-4xl font-medium text-amber-900 dark:text-amber-400 font-heading mt-2">Barrel-Aged Program</h2>
+        <p class="text-gray-600 dark:text-gray-400 mt-2 max-w-2xl">Time, wood, and patience. Our barrel program pushes the boundaries of what beer can become.</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-stone-900 text-stone-200 rounded-xl p-6 border border-stone-800 hover:border-amber-700/40 transition">
+          <span class="text-amber-400 text-3xl font-medium font-heading">01</span>
+          <h3 class="text-lg font-medium text-amber-100 mt-2">Bourbon Barrel Imperial Porter</h3>
+          <p class="text-xs text-stone-400 mt-2">Aged 14 months in Kentucky bourbon barrels. Notes of vanilla, dark fruit, and toasted oak. 11.2% ABV.</p>
+          <span class="inline-block mt-4 text-xs bg-amber-700/20 text-amber-400 px-2 py-1 rounded">Limited � 500 bottles</span>
+        </div>
+        <div class="bg-stone-900 text-stone-200 rounded-xl p-6 border border-stone-800 hover:border-amber-700/40 transition">
+          <span class="text-amber-400 text-3xl font-medium font-heading">02</span>
+          <h3 class="text-lg font-medium text-amber-100 mt-2">Wine Barrel Wild Ale</h3>
+          <p class="text-xs text-stone-400 mt-2">Fermented in Pinot Noir barrels with native yeasts. Bright acidity with layers of berry and oak. 7.8% ABV.</p>
+          <span class="inline-block mt-4 text-xs bg-amber-700/20 text-amber-400 px-2 py-1 rounded">Limited � 300 bottles</span>
+        </div>
+        <div class="bg-stone-900 text-stone-200 rounded-xl p-6 border border-stone-800 hover:border-amber-700/40 transition">
+          <span class="text-amber-400 text-3xl font-medium font-heading">03</span>
+          <h3 class="text-lg font-medium text-amber-100 mt-2">Rye Barrel Barleywine</h3>
+          <p class="text-xs text-stone-400 mt-2">18 months in rye whiskey barrels. Rich, complex, and warming with dark caramel and spice. 13.5% ABV.</p>
+          <span class="inline-block mt-4 text-xs bg-amber-700/20 text-amber-400 px-2 py-1 rounded">Limited � 400 bottles</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- TASTING NOTES -->
+    <section class="py-20 px-4 bg-amber-100/60 dark:bg-stone-950">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <span class="text-amber-700 dark:text-amber-500 uppercase tracking-[0.2em] text-sm font-medium">How to Read Our Board</span>
+            <h2 class="text-3xl md:text-4xl font-medium text-amber-900 dark:text-amber-400 font-heading mt-2 mb-6">Understanding Your Beer</h2>
+            <div class="space-y-4">
+              <div class="flex gap-4 bg-white dark:bg-stone-800 p-4 rounded-lg border border-amber-200/30 dark:border-stone-700">
+                <span class="text-2xl font-medium text-amber-700 font-heading shrink-0">ABV</span>
+                <div>
+                  <h4 class="font-medium text-stone-800 dark:text-amber-100 text-sm">Alcohol by Volume</h4>
+                  <p class="text-xs text-gray-600 dark:text-stone-400">The percentage of alcohol in your beer. Lower ABV (4-5%) means sessionable; higher (7%+) means sipping.</p>
+                </div>
+              </div>
+              <div class="flex gap-4 bg-white dark:bg-stone-800 p-4 rounded-lg border border-amber-200/30 dark:border-stone-700">
+                <span class="text-2xl font-medium text-amber-700 font-heading shrink-0">IBU</span>
+                <div>
+                  <h4 class="font-medium text-stone-800 dark:text-amber-100 text-sm">International Bitterness Units</h4>
+                  <p class="text-xs text-gray-600 dark:text-stone-400">Measures hop bitterness. Gentle (10-20 IBU) to bold (60+ IBU). Our hazy IPAs sit around 65 for a balanced bite.</p>
+                </div>
+              </div>
+              <div class="flex gap-4 bg-white dark:bg-stone-800 p-4 rounded-lg border border-amber-200/30 dark:border-stone-700">
+                <span class="text-2xl font-medium text-amber-700 font-heading shrink-0">SRM</span>
+                <div>
+                  <h4 class="font-medium text-stone-800 dark:text-amber-100 text-sm">Standard Reference Method</h4>
+                  <p class="text-xs text-gray-600 dark:text-stone-400">Color scale from pale straw (2) to midnight black (40+). The darker the beer, the richer the roasted malt flavor.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <img src="assets/beers-flight.jpg" class="rounded-2xl shadow-xl w-full h-96 object-cover">
+        </div>
+      </div>
+    </section>
+
+    <!-- TAPROOM CTA -->
+    <section class="py-16 px-4 max-w-7xl mx-auto text-center">
+      <div class="max-w-2xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-medium text-amber-900 dark:text-amber-400 font-heading mb-4">Come Taste the Lineup</h2>
+        <p class="text-gray-600 dark:text-gray-400 mb-8">Our tap list changes weekly. Stop by to see what's fresh off the fermentation tanks.</p>
+        <div class="flex flex-wrap gap-4 justify-center">
+          <a href="contact.html" class="bg-amber-800 text-white px-8 py-3.5 rounded-md font-medium hover:bg-amber-900 transition shadow-lg">Find Us</a>
+          <a href="events.html" class="bg-transparent border-2 border-amber-700 text-amber-800 dark:text-amber-400 dark:border-amber-500 px-8 py-3.5 rounded-md font-medium hover:bg-amber-700 hover:text-white transition">Upcoming Events</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="js/footer.js"></script>
+</body>
+</html>

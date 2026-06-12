@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Hops Haven</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ['Playfair Display', 'serif'],
+            body: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            amber: {
+              50: '#fefaf0',
+              100: '#fdf3d7',
+              700: '#b45309',
+              800: '#92400e',
+              900: '#78350f',
+            },
+            stone: {
+              800: '#292524',
+              900: '#1c1917',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    h1, h2, h3, h4, h5, h6 { font-family: 'Playfair Display', Georgia, serif; }
+    .sidebar-link { border-right: 3px solid transparent; }
+    .sidebar-link.active, .sidebar-link:hover { border-right-color: #b45309; background: rgba(180, 83, 9, 0.08); }
+    .dark .sidebar-link.active, .dark .sidebar-link:hover { background: rgba(180, 83, 9, 0.15); }
+    .stat-card { transition: transform 0.2s, box-shadow 0.2s; }
+    .stat-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+    .dark .stat-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+    .bar { transition: height 0.6s ease-out; }
+    .sb-scroll::-webkit-scrollbar { display: none; }
+    .sb-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+    .page-section { display: none; }
+    .page-section.active { display: block; }
+  </style>
+</head>
+<body class="bg-amber-50 dark:bg-stone-900 dark:text-gray-100 min-h-screen font-body">
+
+  <div class="flex h-screen overflow-hidden">
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar" class="fixed lg:static inset-y-0 left-0 z-50 w-64 bg-white dark:bg-stone-950 border-r border-amber-200/30 dark:border-stone-800 flex flex-col shrink-0 -translate-x-full lg:translate-x-0 transition-transform duration-300">
+      <div class="h-16 flex items-center px-5 border-b border-amber-200/30 dark:border-stone-800">
+        <a href="../index.html" class="flex items-center gap-2.5 group">
+          <div class="w-9 h-9 lg:w-10 lg:h-10 rounded-xl bg-gradient-to-br from-amber-700 to-amber-900 dark:from-amber-600 dark:to-amber-800 flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow">
+            <svg class="w-5 h-5 lg:w-5.5 lg:h-5.5 text-amber-50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 11h1a3 3 0 0 1 0 6h-1"/>
+              <path d="M9 5h6"/>
+              <path d="M9 5v2a3 3 0 0 0 3 3h0a3 3 0 0 0 3-3V5"/>
+              <path d="M9 11v8a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-8"/>
+              <path d="M5 11h4"/>
+              <path d="M5 13h4"/>
+              <path d="M5 15h3"/>
+            </svg>
+          </div>
+          <div class="flex flex-col leading-none">
+            <span class="text-lg lg:text-xl font-medium tracking-tight text-amber-800 dark:text-amber-400 font-heading group-hover:text-amber-700 dark:group-hover:text-amber-300 transition-colors">Hops Haven</span>
+            <span class="text-[10px] lg:text-xs text-stone-400 dark:text-stone-500 font-medium tracking-wider uppercase">Craft Brewery</span>
+          </div>
+        </a>
+      </div>
+      <nav class="sb-scroll flex-1 overflow-y-auto px-3 py-4 space-y-0.5">
+        <div class="text-[10px] uppercase tracking-widest text-stone-400 dark:text-stone-500 font-medium px-3 pt-4 pb-1.5">Main</div>
+        <a href="#" onclick="navigate('dashboard')" data-page="dashboard" class="sidebar-link active flex items-center gap-3 px-3 py-2.5 rounded-l text-sm font-medium text-amber-800 dark:text-amber-400">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Dashboard
+        </a>
+        <a href="#" onclick="navigate('orders')" data-page="orders" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-l text-sm font-medium text-stone-800 dark:text-stone-200 hover:text-amber-800 dark:hover:text-amber-400 transition">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>Orders
+        </a>
+        <a href="#" onclick="navigate('inventory')" data-page="inventory" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-l text-sm font-medium text-stone-800 dark:text-stone-200 hover:text-amber-800 dark:hover:text-amber-400 transition">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l9 4.5v9L12 20l-9-4.5v-9L12 2z"/><path d="M12 11v9"/><path d="M3 6.5l9 4.5 9-4.5"/></svg>Beer Inventory
+        </a>
+        <a href="#" onclick="navigate('events')" data-page="events" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-l text-sm font-medium text-stone-800 dark:text-stone-200 hover:text-amber-800 dark:hover:text-amber-400 transition">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Events
+        </a>
+        <div class="text-[10px] uppercase tracking-widest text-stone-400 dark:text-stone-500 font-medium px-3 pt-5 pb-1.5">People</div>
+        <a href="#" onclick="navigate('members')" data-page="members" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-l text-sm font-medium text-stone-800 dark:text-stone-200 hover:text-amber-800 dark:hover:text-amber-400 transition">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Members
+        </a>
+        <a href="#" onclick="navigate('staff')" data-page="staff" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-l text-sm font-medium text-stone-800 dark:text-stone-200 hover:text-amber-800 dark:hover:text-amber-400 transition">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Staff
+        </a>
+        <div class="text-[10px] uppercase tracking-widest text-stone-400 dark:text-stone-500 font-medium px-3 pt-5 pb-1.5">Management</div>
+        <a href="#" onclick="navigate('reports')" data-page="reports" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-l text-sm font-medium text-stone-800 dark:text-stone-200 hover:text-amber-800 dark:hover:text-amber-400 transition">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>Reports
+        </a>
+        <a href="#" onclick="navigate('promotions')" data-page="promotions" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-l text-sm font-medium text-stone-800 dark:text-stone-200 hover:text-amber-800 dark:hover:text-amber-400 transition">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12l2 2 4-4"/></svg>Promotions
+        </a>
+        <a href="#" onclick="navigate('settings')" data-page="settings" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-l text-sm font-medium text-stone-800 dark:text-stone-200 hover:text-amber-800 dark:hover:text-amber-400 transition">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Settings
+        </a>
+      </nav>
+      <div class="p-3 border-t border-amber-200/30 dark:border-stone-800">
+        <button onclick="logout()" class="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium text-white bg-red-700 hover:bg-red-600 transition shadow">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Logout
+        </button>
+      </div>
+    </aside>
+
+    <!-- SIDEBAR OVERLAY (mobile) -->
+    <div id="sidebar-overlay" class="fixed inset-0 bg-stone-900/50 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
+
+    <!-- MAIN -->
+    <div class="flex-1 flex flex-col min-w-0">
+
+      <!-- HEADER -->
+      <header class="h-16 bg-white dark:bg-stone-950 border-b border-amber-200/30 dark:border-stone-800 flex items-center justify-between px-4 lg:px-6 shrink-0">
+        <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-lg hover:bg-amber-100 dark:hover:bg-stone-800 transition">
+          <svg class="w-5 h-5 text-stone-600 dark:text-stone-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
+        <div class="hidden sm:flex items-center flex-1 max-w-lg mx-4 lg:mx-6 relative">
+          <div class="w-full flex items-center gap-2.5 px-4 py-2 bg-amber-50/70 dark:bg-stone-900 border border-amber-200/30 dark:border-stone-700 rounded-xl">
+            <svg class="w-4 h-4 text-stone-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            <input id="global-search" type="text" placeholder="Search orders, beers, members..." oninput="searchDashboard(this.value)" onfocus="document.getElementById('search-dropdown').classList.remove('hidden')" onblur="setTimeout(()=>document.getElementById('search-dropdown').classList.add('hidden'),200)" class="w-full bg-transparent text-sm text-stone-600 dark:text-stone-400 placeholder-stone-400 focus:outline-none">
+          </div>
+          <div id="search-dropdown" class="hidden absolute top-full left-0 right-0 mt-2 bg-white dark:bg-stone-900 border border-amber-200/30 dark:border-stone-700 rounded-xl shadow-xl z-50 py-2 max-h-64 overflow-y-auto">
+            <div class="px-4 py-1.5 text-[10px] uppercase tracking-wider text-stone-400 font-medium">Recent</div>
+            <a href="#" class="flex items-center gap-3 px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-amber-50 dark:hover:bg-stone-800 transition"><svg class="w-3.5 h-3.5 text-stone-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>Order #1042 - Sarah J.</a>
+            <a href="#" class="flex items-center gap-3 px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-amber-50 dark:hover:bg-stone-800 transition"><svg class="w-3.5 h-3.5 text-stone-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>Riverstone IPA - low stock</a>
+            <a href="#" class="flex items-center gap-3 px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-amber-50 dark:hover:bg-stone-800 transition"><svg class="w-3.5 h-3.5 text-stone-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>New member Lisa M. - Gold</a>
+            <a href="#" class="flex items-center gap-3 px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-amber-50 dark:hover:bg-stone-800 transition"><svg class="w-3.5 h-3.5 text-stone-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>Midnight Stout - keg tapped</a>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="themeToggle()" class="p-2 rounded-lg hover:bg-amber-100 dark:hover:bg-stone-800 transition" title="Toggle theme">
+            <svg class="w-5 h-5 text-stone-600 dark:text-stone-400 dark:hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="w-5 h-5 text-amber-400 hidden dark:block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          </button>
+          <button onclick="rtlToggle()" class="p-2 rounded-lg hover:bg-amber-100 dark:hover:bg-stone-800 transition" title="Toggle RTL">
+            <span class="text-xs font-medium text-stone-600 dark:text-stone-400 dir-icon">RTL</span>
+          </button>
+          <div class="flex items-center gap-2 pl-2 border-l border-amber-200/30 dark:border-stone-800">
+            <div class="w-8 h-8 rounded-full bg-amber-700 flex items-center justify-center text-white text-xs font-medium">MA</div>
+            <span class="hidden md:block text-sm font-medium text-stone-700 dark:text-stone-300">Marco A.</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- CONTENT -->
+      <main class="flex-1 overflow-y-auto p-4 lg:p-6 space-y-6">
+
+        <div id="page-dashboard" class="page-section active">
+          <!-- STATS -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+            <div class="stat-card bg-white dark:bg-stone-800 rounded-xl p-4 border border-amber-200/30 dark:border-stone-700">
+              <p class="text-xs uppercase tracking-wider text-stone-400 dark:text-stone-500 font-medium">Revenue</p>
+              <p class="text-2xl lg:text-3xl font-medium text-amber-800 dark:text-amber-400 mt-1 font-heading">$28,450</p>
+              <p class="text-xs text-green-600 mt-1 flex items-center gap-1"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>+12.3% vs last month</p>
+            </div>
+            <div class="stat-card bg-white dark:bg-stone-800 rounded-xl p-4 border border-amber-200/30 dark:border-stone-700">
+              <p class="text-xs uppercase tracking-wider text-stone-400 dark:text-stone-500 font-medium">Orders</p>
+              <p class="text-2xl lg:text-3xl font-medium text-amber-800 dark:text-amber-400 mt-1 font-heading">847</p>
+              <p class="text-xs text-green-600 mt-1 flex items-center gap-1"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>+5.2% vs last month</p>
+            </div>
+            <div class="stat-card bg-white dark:bg-stone-800 rounded-xl p-4 border border-amber-200/30 dark:border-stone-700">
+              <p class="text-xs uppercase tracking-wider text-stone-400 dark:text-stone-500 font-medium">Active Members</p>
+              <p class="text-2xl lg:text-3xl font-medium text-amber-800 dark:text-amber-400 mt-1 font-heading">2,184</p>
+              <p class="text-xs text-green-600 mt-1 flex items-center gap-1"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>+8.7% vs last month</p>
+            </div>
+            <div class="stat-card bg-white dark:bg-stone-800 rounded-xl p-4 border border-amber-200/30 dark:border-stone-700">
+              <p class="text-xs uppercase tracking-wider text-stone-400 dark:text-stone-500 font-medium">Pints Sold</p>
+              <p class="text-2xl lg:text-3xl font-medium text-amber-800 dark:text-amber-400 mt-1 font-heading">15,382</p>
+              <p class="text-xs text-red-600 mt-1 flex items-center gap-1"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>-2.1% vs last month</p>
+            </div>
+          </div>
+
+          <!-- CHART + RECENT ORDERS -->
+          <div class="grid lg:grid-cols-3 gap-6 mb-6">
+            <div class="lg:col-span-2 bg-white dark:bg-stone-800 rounded-xl p-6 border border-amber-200/30 dark:border-stone-700">
+              <div class="flex items-center justify-between mb-6">
+                <h3 class="font-medium text-stone-800 dark:text-amber-100 font-heading text-lg">Weekly Revenue</h3>
+                <select class="text-xs border border-amber-200/30 dark:border-stone-700 bg-amber-50/50 dark:bg-stone-900 rounded-lg px-2.5 py-1.5 text-stone-600 dark:text-stone-400 focus:outline-none">
+                  <option>Last 7 days</option>
+                  <option>Last 30 days</option>
+                  <option>Last 90 days</option>
+                </select>
+              </div>
+              <div class="flex items-end gap-2 sm:gap-3 h-44">
+                <div class="flex-1 flex flex-col justify-end items-center gap-1.5 h-full">
+                  <span class="text-[10px] text-stone-400 font-medium">$3.2k</span>
+                  <div class="w-full bg-gradient-to-t from-amber-600 to-amber-400 rounded-t bar" style="height:75%"></div>
+                  <span class="text-[10px] text-stone-500 dark:text-stone-500">Mon</span>
+                </div>
+                <div class="flex-1 flex flex-col justify-end items-center gap-1.5 h-full">
+                  <span class="text-[10px] text-stone-400 font-medium">$2.8k</span>
+                  <div class="w-full bg-gradient-to-t from-amber-600 to-amber-400 rounded-t bar" style="height:60%"></div>
+                  <span class="text-[10px] text-stone-500 dark:text-stone-500">Tue</span>
+                </div>
+                <div class="flex-1 flex flex-col justify-end items-center gap-1.5 h-full">
+                  <span class="text-[10px] text-stone-400 font-medium">$3.5k</span>
+                  <div class="w-full bg-gradient-to-t from-amber-600 to-amber-400 rounded-t bar" style="height:80%"></div>
+                  <span class="text-[10px] text-stone-500 dark:text-stone-500">Wed</span>
+                </div>
+                <div class="flex-1 flex flex-col justify-end items-center gap-1.5 h-full">
+                  <span class="text-[10px] text-stone-400 font-medium">$4.1k</span>
+                  <div class="w-full bg-gradient-to-t from-amber-600 to-amber-400 rounded-t bar" style="height:95%"></div>
+                  <span class="text-[10px] text-stone-500 dark:text-stone-500">Thu</span>
+                </div>
+                <div class="flex-1 flex flex-col justify-end items-center gap-1.5 h-full">
+                  <span class="text-[10px] text-stone-400 font-medium">$4.3k</span>
+                  <div class="w-full bg-gradient-to-t from-amber-600 to-amber-400 rounded-t bar" style="height:100%"></div>
+                  <span class="text-[10px] text-stone-500 dark:text-stone-500">Fri</span>
+                </div>
+                <div class="flex-1 flex flex-col justify-end items-center gap-1.5 h-full">
+                  <span class="text-[10px] text-stone-400 font-medium">$3.9k</span>
+                  <div class="w-full bg-gradient-to-t from-amber-600 to-amber-400 rounded-t bar" style="height:88%"></div>
+                  <span class="text-[10px] text-stone-500 dark:text-stone-500">Sat</span>
+                </div>
+                <div class="flex-1 flex flex-col justify-end items-center gap-1.5 h-full">
+                  <span class="text-[10px] text-stone-400 font-medium">$2.1k</span>
+                  <div class="w-full bg-gradient-to-t from-amber-600 to-amber-400 rounded-t bar" style="height:48%"></div>
+                  <span class="text-[10px] text-stone-500 dark:text-stone-500">Sun</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- QUICK ACTIONS -->
+            <div class="bg-white dark:bg-stone-800 rounded-xl p-6 border border-amber-200/30 dark:border-stone-700">
+              <h3 class="font-medium text-stone-800 dark:text-amber-100 font-heading text-lg mb-4">Quick Actions</h3>
+              <div class="space-y-2.5">
+                <button class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-stone-700 dark:text-stone-300 hover:bg-amber-100 dark:hover:bg-stone-700 transition text-left">
+                  <span class="w-8 h-8 rounded-lg bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center shrink-0"><svg class="w-4 h-4 text-amber-700 dark:text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+                  Add New Beer
+                </button>
+                <button class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-stone-700 dark:text-stone-300 hover:bg-amber-100 dark:hover:bg-stone-700 transition text-left">
+                  <span class="w-8 h-8 rounded-lg bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center shrink-0"><svg class="w-4 h-4 text-amber-700 dark:text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+                  Add Staff Member
+                </button>
+                <button class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-stone-700 dark:text-stone-300 hover:bg-amber-100 dark:hover:bg-stone-700 transition text-left">
+                  <span class="w-8 h-8 rounded-lg bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center shrink-0"><svg class="w-4 h-4 text-amber-700 dark:text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>
+                  Schedule Event
+                </button>
+                <button class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-stone-700 dark:text-stone-300 hover:bg-amber-100 dark:hover:bg-stone-700 transition text-left">
+                  <span class="w-8 h-8 rounded-lg bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center shrink-0"><svg class="w-4 h-4 text-amber-700 dark:text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+                  Approve Memberships
+                </button>
+                <button class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-stone-700 dark:text-stone-300 hover:bg-amber-100 dark:hover:bg-stone-700 transition text-left">
+                  <span class="w-8 h-8 rounded-lg bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center shrink-0"><svg class="w-4 h-4 text-amber-700 dark:text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></span>
+                  Update Menu
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- RECENT ORDERS TABLE -->
+          <div class="bg-white dark:bg-stone-800 rounded-xl border border-amber-200/30 dark:border-stone-700 overflow-hidden">
+            <div class="flex items-center justify-between px-6 py-4 border-b border-amber-200/30 dark:border-stone-700">
+              <h3 class="font-medium text-stone-800 dark:text-amber-100 font-heading text-lg">Recent Orders</h3>
+              <a href="#" class="text-xs font-medium text-amber-700 dark:text-amber-400 hover:underline">View All</a>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="text-xs uppercase tracking-wider text-stone-400 dark:text-stone-500 border-b border-amber-200/30 dark:border-stone-700 bg-amber-50/50 dark:bg-stone-900/50">
+                    <th class="text-left px-6 py-3 font-medium">Order</th>
+                    <th class="text-left px-6 py-3 font-medium">Customer</th>
+                    <th class="text-left px-6 py-3 font-medium hidden sm:table-cell">Items</th>
+                    <th class="text-left px-6 py-3 font-medium hidden md:table-cell">Date</th>
+                    <th class="text-left px-6 py-3 font-medium">Total</th>
+                    <th class="text-left px-6 py-3 font-medium">Status</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-amber-200/30 dark:divide-stone-700">
+                  <tr class="hover:bg-amber-50/50 dark:hover:bg-stone-700/50 transition">
+                    <td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">#1042</td>
+                    <td class="px-6 py-3.5 text-stone-600 dark:text-stone-400">Sarah J.</td>
+                    <td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden sm:table-cell">3 items</td>
+                    <td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden md:table-cell">Jun 10, 2026</td>
+                    <td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">$38.50</td>
+                    <td class="px-6 py-3.5"><span class="text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-2 py-1 rounded-full font-medium">Completed</span></td>
+                  </tr>
+                  <tr class="hover:bg-amber-50/50 dark:hover:bg-stone-700/50 transition">
+                    <td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">#1041</td>
+                    <td class="px-6 py-3.5 text-stone-600 dark:text-stone-400">Mike R.</td>
+                    <td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden sm:table-cell">5 items</td>
+                    <td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden md:table-cell">Jun 10, 2026</td>
+                    <td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">$64.25</td>
+                    <td class="px-6 py-3.5"><span class="text-xs bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 px-2 py-1 rounded-full font-medium">Pending</span></td>
+                  </tr>
+                  <tr class="hover:bg-amber-50/50 dark:hover:bg-stone-700/50 transition">
+                    <td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">#1040</td>
+                    <td class="px-6 py-3.5 text-stone-600 dark:text-stone-400">Aisha K.</td>
+                    <td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden sm:table-cell">2 items</td>
+                    <td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden md:table-cell">Jun 9, 2026</td>
+                    <td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">$21.00</td>
+                    <td class="px-6 py-3.5"><span class="text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-2 py-1 rounded-full font-medium">Completed</span></td>
+                  </tr>
+                  <tr class="hover:bg-amber-50/50 dark:hover:bg-stone-700/50 transition">
+                    <td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">#1039</td>
+                    <td class="px-6 py-3.5 text-stone-600 dark:text-stone-400">Tom B.</td>
+                    <td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden sm:table-cell">1 item</td>
+                    <td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden md:table-cell">Jun 9, 2026</td>
+                    <td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">$9.50</td>
+                    <td class="px-6 py-3.5"><span class="text-xs bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 px-2 py-1 rounded-full font-medium">Cancelled</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- BOTTOM ROW -->
+          <div class="grid md:grid-cols-2 gap-6 mt-6">
+            <div class="bg-white dark:bg-stone-800 rounded-xl p-6 border border-amber-200/30 dark:border-stone-700">
+              <h3 class="font-medium text-stone-800 dark:text-amber-100 font-heading text-lg mb-4">Top Selling Beers</h3>
+              <div class="space-y-3.5">
+                <div class="flex items-center gap-3">
+                  <span class="w-6 h-6 rounded-full bg-amber-700 text-white text-xs font-medium flex items-center justify-center shrink-0">1</span>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-stone-800 dark:text-stone-200 truncate">Riverstone IPA</p>
+                    <div class="w-full h-2 bg-amber-100 dark:bg-stone-700 rounded-full mt-1"><div class="h-2 bg-amber-600 rounded-full" style="width:92%"></div></div>
+                  </div>
+                  <span class="text-xs font-medium text-stone-500 dark:text-stone-400 shrink-0">342 pts</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="w-6 h-6 rounded-full bg-amber-700 text-white text-xs font-medium flex items-center justify-center shrink-0">2</span>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-stone-800 dark:text-stone-200 truncate">Amber Horizon</p>
+                    <div class="w-full h-2 bg-amber-100 dark:bg-stone-700 rounded-full mt-1"><div class="h-2 bg-amber-600 rounded-full" style="width:78%"></div></div>
+                  </div>
+                  <span class="text-xs font-medium text-stone-500 dark:text-stone-400 shrink-0">287 pts</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="w-6 h-6 rounded-full bg-amber-700 text-white text-xs font-medium flex items-center justify-center shrink-0">3</span>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-stone-800 dark:text-stone-200 truncate">Midnight Stout</p>
+                    <div class="w-full h-2 bg-amber-100 dark:bg-stone-700 rounded-full mt-1"><div class="h-2 bg-amber-600 rounded-full" style="width:65%"></div></div>
+                  </div>
+                  <span class="text-xs font-medium text-stone-500 dark:text-stone-400 shrink-0">195 pts</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="w-6 h-6 rounded-full bg-stone-300 dark:bg-stone-600 text-white text-xs font-medium flex items-center justify-center shrink-0">4</span>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-stone-800 dark:text-stone-200 truncate">Citra Haze</p>
+                    <div class="w-full h-2 bg-amber-100 dark:bg-stone-700 rounded-full mt-1"><div class="h-2 bg-amber-600 rounded-full" style="width:52%"></div></div>
+                  </div>
+                  <span class="text-xs font-medium text-stone-500 dark:text-stone-400 shrink-0">133 pts</span>
+                </div>
+              </div>
+            </div>
+            <div class="bg-white dark:bg-stone-800 rounded-xl p-6 border border-amber-200/30 dark:border-stone-700">
+              <h3 class="font-medium text-stone-800 dark:text-amber-100 font-heading text-lg mb-4">Recent Activity</h3>
+              <div class="space-y-4">
+                <div class="flex items-start gap-3">
+                  <div class="w-2 h-2 rounded-full bg-green-500 mt-2 shrink-0"></div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm text-stone-700 dark:text-stone-300"><span class="font-medium">Sarah J.</span> completed order #1042</p>
+                    <p class="text-xs text-stone-400 mt-0.5">12 minutes ago</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <div class="w-2 h-2 rounded-full bg-amber-500 mt-2 shrink-0"></div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm text-stone-700 dark:text-stone-300"><span class="font-medium">Mike R.</span> placed order #1041</p>
+                    <p class="text-xs text-stone-400 mt-0.5">28 minutes ago</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <div class="w-2 h-2 rounded-full bg-blue-500 mt-2 shrink-0"></div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm text-stone-700 dark:text-stone-300">New member <span class="font-medium">Lisa M.</span> joined Gold tier</p>
+                    <p class="text-xs text-stone-400 mt-0.5">1 hour ago</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <div class="w-2 h-2 rounded-full bg-purple-500 mt-2 shrink-0"></div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm text-stone-700 dark:text-stone-300"><span class="font-medium">Riverstone IPA</span> keg tapped</p>
+                    <p class="text-xs text-stone-400 mt-0.5">2 hours ago</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <div class="w-2 h-2 rounded-full bg-red-500 mt-2 shrink-0"></div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm text-stone-700 dark:text-stone-300">Order <span class="font-medium">#1039</span> cancelled by Tom B.</p>
+                    <p class="text-xs text-stone-400 mt-0.5">3 hours ago</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="page-orders" class="page-section">
+          <div class="bg-white dark:bg-stone-800 rounded-xl border border-amber-200/30 dark:border-stone-700 overflow-hidden">
+            <div class="flex flex-wrap items-center justify-between gap-4 px-5 py-4 border-b border-amber-200/30 dark:border-stone-700">
+              <div>
+                <h2 class="text-xl font-medium text-stone-800 dark:text-amber-100 font-heading">Orders</h2>
+                <p class="text-xs text-stone-500 mt-0.5">847 total | 623 completed | 178 pending | 46 cancelled</p>
+              </div>
+              <div class="flex gap-2">
+                <select class="text-xs border border-amber-200/30 dark:border-stone-700 bg-amber-50/50 dark:bg-stone-900 rounded-lg px-2.5 py-1.5 text-stone-600 dark:text-stone-400 focus:outline-none"><option>All Status</option><option>Completed</option><option>Pending</option><option>Cancelled</option></select>
+                <select class="text-xs border border-amber-200/30 dark:border-stone-700 bg-amber-50/50 dark:bg-stone-900 rounded-lg px-2.5 py-1.5 text-stone-600 dark:text-stone-400 focus:outline-none"><option>Last 30 Days</option><option>Last 90 Days</option><option>All Time</option></select>
+              </div>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead><tr class="text-xs uppercase tracking-wider text-stone-400 dark:text-stone-500 border-b border-amber-200/30 dark:border-stone-700 bg-amber-50/50 dark:bg-stone-900/50"><th class="text-left px-6 py-3 font-medium">Order</th><th class="text-left px-6 py-3 font-medium">Customer</th><th class="text-left px-6 py-3 font-medium hidden sm:table-cell">Items</th><th class="text-left px-6 py-3 font-medium hidden md:table-cell">Date</th><th class="text-left px-6 py-3 font-medium">Total</th><th class="text-left px-6 py-3 font-medium">Status</th><th class="text-right px-6 py-3 font-medium">Action</th></tr></thead>
+                <tbody class="divide-y divide-amber-200/30 dark:divide-stone-700">
+                  <tr class="hover:bg-amber-50/50 dark:hover:bg-stone-700/50 transition"><td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">#1042</td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400">Sarah J.</td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden sm:table-cell">3 items</td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden md:table-cell">Jun 10, 2026</td><td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">$38.50</td><td class="px-6 py-3.5"><span class="text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-2 py-1 rounded-full font-medium">Completed</span></td><td class="px-6 py-3.5 text-right"><button class="text-xs text-amber-700 dark:text-amber-400 font-medium hover:underline">View</button></td></tr>
+                  <tr class="hover:bg-amber-50/50 dark:hover:bg-stone-700/50 transition"><td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">#1041</td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400">Mike R.</td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden sm:table-cell">5 items</td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden md:table-cell">Jun 10, 2026</td><td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">$64.25</td><td class="px-6 py-3.5"><span class="text-xs bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 px-2 py-1 rounded-full font-medium">Pending</span></td><td class="px-6 py-3.5 text-right"><button class="text-xs text-amber-700 dark:text-amber-400 font-medium hover:underline">Process</button></td></tr>
+                  <tr class="hover:bg-amber-50/50 dark:hover:bg-stone-700/50 transition"><td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">#1040</td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400">Aisha K.</td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden sm:table-cell">2 items</td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden md:table-cell">Jun 9, 2026</td><td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">$21.00</td><td class="px-6 py-3.5"><span class="text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-2 py-1 rounded-full font-medium">Completed</span></td><td class="px-6 py-3.5 text-right"><button class="text-xs text-amber-700 dark:text-amber-400 font-medium hover:underline">View</button></td></tr>
+                  <tr class="hover:bg-amber-50/50 dark:hover:bg-stone-700/50 transition"><td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">#1039</td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400">Tom B.</td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden sm:table-cell">1 item</td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden md:table-cell">Jun 9, 2026</td><td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">$9.50</td><td class="px-6 py-3.5"><span class="text-xs bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 px-2 py-1 rounded-full font-medium">Cancelled</span></td><td class="px-6 py-3.5 text-right"><button class="text-xs text-amber-700 dark:text-amber-400 font-medium hover:underline">Details</button></td></tr>
+                  <tr class="hover:bg-amber-50/50 dark:hover:bg-stone-700/50 transition"><td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">#1038</td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400">Lisa M.</td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden sm:table-cell">4 items</td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden md:table-cell">Jun 8, 2026</td><td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">$52.75</td><td class="px-6 py-3.5"><span class="text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-2 py-1 rounded-full font-medium">Completed</span></td><td class="px-6 py-3.5 text-right"><button class="text-xs text-amber-700 dark:text-amber-400 font-medium hover:underline">View</button></td></tr>
+                  <tr class="hover:bg-amber-50/50 dark:hover:bg-stone-700/50 transition"><td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">#1037</td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400">Derek J.</td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden sm:table-cell">2 items</td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden md:table-cell">Jun 8, 2026</td><td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">$18.00</td><td class="px-6 py-3.5"><span class="text-xs bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 px-2 py-1 rounded-full font-medium">Pending</span></td><td class="px-6 py-3.5 text-right"><button class="text-xs text-amber-700 dark:text-amber-400 font-medium hover:underline">Process</button></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="flex items-center justify-between px-6 py-3 border-t border-amber-200/30 dark:border-stone-700 text-xs text-stone-500">
+              <span>Showing 1-6 of 847</span>
+              <div class="flex gap-1"><button class="px-2.5 py-1 rounded border border-amber-200/30 dark:border-stone-700 hover:bg-amber-100 dark:hover:bg-stone-700 transition">Prev</button><button class="px-2.5 py-1 rounded bg-amber-800 text-white border border-amber-800">1</button><button class="px-2.5 py-1 rounded border border-amber-200/30 dark:border-stone-700 hover:bg-amber-100 dark:hover:bg-stone-700 transition">2</button><button class="px-2.5 py-1 rounded border border-amber-200/30 dark:border-stone-700 hover:bg-amber-100 dark:hover:bg-stone-700 transition">Next</button></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="page-inventory" class="page-section">
+          <div class="bg-white dark:bg-stone-800 rounded-xl border border-amber-200/30 dark:border-stone-700 overflow-hidden">
+            <div class="flex items-center justify-between px-5 py-4 border-b border-amber-200/30 dark:border-stone-700">
+              <h2 class="text-xl font-medium text-stone-800 dark:text-amber-100 font-heading">Beer Inventory</h2>
+              <button class="text-xs bg-amber-800 text-white px-3 py-1.5 rounded-lg font-medium hover:bg-amber-900 transition">+ Add Beer</button>
+            </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 p-5">
+              <div class="border border-amber-200/30 dark:border-stone-700 rounded-xl p-5 hover:shadow-md transition"><div class="flex items-center justify-between"><p class="text-sm font-medium text-stone-800 dark:text-stone-200">Riverstone IPA</p><span class="text-xs text-red-600 font-medium bg-red-50 dark:bg-red-900/20 px-2 py-0.5 rounded-full">Low</span></div><p class="text-xs text-stone-500 mt-1">SKU: HH-001 | ABV: 6.8%</p><div class="mt-3"><div class="flex justify-between text-xs text-stone-500 mb-1"><span>3 kegs / 12 cases</span><span>30%</span></div><div class="w-full h-1.5 bg-amber-100 dark:bg-stone-700 rounded-full"><div class="h-1.5 bg-red-500 rounded-full" style="width:30%"></div></div></div><button class="mt-3 text-xs text-amber-700 dark:text-amber-400 font-medium hover:underline">Restock</button></div>
+              <div class="border border-amber-200/30 dark:border-stone-700 rounded-xl p-5 hover:shadow-md transition"><div class="flex items-center justify-between"><p class="text-sm font-medium text-stone-800 dark:text-stone-200">Amber Horizon</p><span class="text-xs text-green-600 font-medium bg-green-50 dark:bg-green-900/20 px-2 py-0.5 rounded-full">Good</span></div><p class="text-xs text-stone-500 mt-1">SKU: HH-002 | ABV: 5.2%</p><div class="mt-3"><div class="flex justify-between text-xs text-stone-500 mb-1"><span>7 kegs / 24 cases</span><span>70%</span></div><div class="w-full h-1.5 bg-amber-100 dark:bg-stone-700 rounded-full"><div class="h-1.5 bg-green-500 rounded-full" style="width:70%"></div></div></div><button class="mt-3 text-xs text-amber-700 dark:text-amber-400 font-medium hover:underline">Details</button></div>
+              <div class="border border-amber-200/30 dark:border-stone-700 rounded-xl p-5 hover:shadow-md transition"><div class="flex items-center justify-between"><p class="text-sm font-medium text-stone-800 dark:text-stone-200">Midnight Stout</p><span class="text-xs text-yellow-600 font-medium bg-yellow-50 dark:bg-yellow-900/20 px-2 py-0.5 rounded-full">Medium</span></div><p class="text-xs text-stone-500 mt-1">SKU: HH-003 | ABV: 7.4%</p><div class="mt-3"><div class="flex justify-between text-xs text-stone-500 mb-1"><span>5 kegs / 18 cases</span><span>50%</span></div><div class="w-full h-1.5 bg-amber-100 dark:bg-stone-700 rounded-full"><div class="h-1.5 bg-yellow-500 rounded-full" style="width:50%"></div></div></div><button class="mt-3 text-xs text-amber-700 dark:text-amber-400 font-medium hover:underline">Details</button></div>
+              <div class="border border-amber-200/30 dark:border-stone-700 rounded-xl p-5 hover:shadow-md transition"><div class="flex items-center justify-between"><p class="text-sm font-medium text-stone-800 dark:text-stone-200">Citra Haze</p><span class="text-xs text-green-600 font-medium bg-green-50 dark:bg-green-900/20 px-2 py-0.5 rounded-full">Good</span></div><p class="text-xs text-stone-500 mt-1">SKU: HH-004 | ABV: 6.2%</p><div class="mt-3"><div class="flex justify-between text-xs text-stone-500 mb-1"><span>8 kegs / 30 cases</span><span>80%</span></div><div class="w-full h-1.5 bg-amber-100 dark:bg-stone-700 rounded-full"><div class="h-1.5 bg-green-500 rounded-full" style="width:80%"></div></div></div><button class="mt-3 text-xs text-amber-700 dark:text-amber-400 font-medium hover:underline">Details</button></div>
+              <div class="border border-amber-200/30 dark:border-stone-700 rounded-xl p-5 hover:shadow-md transition"><div class="flex items-center justify-between"><p class="text-sm font-medium text-stone-800 dark:text-stone-200">Maple Porter</p><span class="text-xs text-red-600 font-medium bg-red-50 dark:bg-red-900/20 px-2 py-0.5 rounded-full">Low</span></div><p class="text-xs text-stone-500 mt-1">SKU: HH-005 | ABV: 5.8%</p><div class="mt-3"><div class="flex justify-between text-xs text-stone-500 mb-1"><span>1 keg / 4 cases</span><span>10%</span></div><div class="w-full h-1.5 bg-amber-100 dark:bg-stone-700 rounded-full"><div class="h-1.5 bg-red-500 rounded-full" style="width:10%"></div></div></div><button class="mt-3 text-xs text-amber-700 dark:text-amber-400 font-medium hover:underline">Restock</button></div>
+              <div class="border border-amber-200/30 dark:border-stone-700 rounded-xl p-5 hover:shadow-md transition"><div class="flex items-center justify-between"><p class="text-sm font-medium text-stone-800 dark:text-stone-200">Hoppy Wheat</p><span class="text-xs text-green-600 font-medium bg-green-50 dark:bg-green-900/20 px-2 py-0.5 rounded-full">Good</span></div><p class="text-xs text-stone-500 mt-1">SKU: HH-006 | ABV: 4.8%</p><div class="mt-3"><div class="flex justify-between text-xs text-stone-500 mb-1"><span>10 kegs / 36 cases</span><span>100%</span></div><div class="w-full h-1.5 bg-amber-100 dark:bg-stone-700 rounded-full"><div class="h-1.5 bg-green-500 rounded-full" style="width:100%"></div></div></div><button class="mt-3 text-xs text-amber-700 dark:text-amber-400 font-medium hover:underline">Details</button></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="page-events" class="page-section">
+          <div class="bg-white dark:bg-stone-800 rounded-xl border border-amber-200/30 dark:border-stone-700 overflow-hidden">
+            <div class="flex items-center justify-between px-5 py-4 border-b border-amber-200/30 dark:border-stone-700">
+              <h2 class="text-xl font-medium text-stone-800 dark:text-amber-100 font-heading">Upcoming Events</h2>
+              <button class="text-xs bg-amber-800 text-white px-3 py-1.5 rounded-lg font-medium hover:bg-amber-900 transition">+ Create Event</button>
+            </div>
+            <div class="divide-y divide-amber-200/30 dark:divide-stone-700">
+              <div class="flex items-center gap-4 px-5 py-4 hover:bg-amber-50/50 dark:hover:bg-stone-700/50 transition"><div class="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center shrink-0"><span class="text-xs font-medium text-amber-800 dark:text-amber-400 text-center leading-tight">JUN<br>12</span></div><div class="flex-1 min-w-0"><p class="text-sm font-medium text-stone-800 dark:text-stone-200">Trivia Night</p><p class="text-xs text-stone-500">7:00 PM - 9:00 PM | Hosted by Lena</p></div><span class="text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-2 py-1 rounded-full font-medium shrink-0">Confirmed</span></div>
+              <div class="flex items-center gap-4 px-5 py-4 hover:bg-amber-50/50 dark:hover:bg-stone-700/50 transition"><div class="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center shrink-0"><span class="text-xs font-medium text-amber-800 dark:text-amber-400 text-center leading-tight">JUN<br>14</span></div><div class="flex-1 min-w-0"><p class="text-sm font-medium text-stone-800 dark:text-stone-200">Live Music - Acoustic Set</p><p class="text-xs text-stone-500">8:00 PM - 11:00 PM | The River Trio</p></div><span class="text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-2 py-1 rounded-full font-medium shrink-0">Confirmed</span></div>
+              <div class="flex items-center gap-4 px-5 py-4 hover:bg-amber-50/50 dark:hover:bg-stone-700/50 transition"><div class="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center shrink-0"><span class="text-xs font-medium text-amber-800 dark:text-amber-400 text-center leading-tight">JUN<br>15</span></div><div class="flex-1 min-w-0"><p class="text-sm font-medium text-stone-800 dark:text-stone-200">Brewery Tour + Tasting</p><p class="text-xs text-stone-500">2:00 PM - 4:00 PM | Led by Marco</p></div><span class="text-xs bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 px-2 py-1 rounded-full font-medium shrink-0">Limited</span></div>
+              <div class="flex items-center gap-4 px-5 py-4 hover:bg-amber-50/50 dark:hover:bg-stone-700/50 transition"><div class="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center shrink-0"><span class="text-xs font-medium text-amber-800 dark:text-amber-400 text-center leading-tight">JUN<br>18</span></div><div class="flex-1 min-w-0"><p class="text-sm font-medium text-stone-800 dark:text-stone-200">Paint & Pint Night</p><p class="text-xs text-stone-500">6:30 PM - 8:30 PM | 20 spots</p></div><span class="text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 px-2 py-1 rounded-full font-medium shrink-0">Booking</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="page-members" class="page-section">
+          <div class="bg-white dark:bg-stone-800 rounded-xl border border-amber-200/30 dark:border-stone-700 overflow-hidden">
+            <div class="flex items-center justify-between px-5 py-4 border-b border-amber-200/30 dark:border-stone-700">
+              <h2 class="text-xl font-medium text-stone-800 dark:text-amber-100 font-heading">Mug Club Members</h2>
+              <span class="text-xs text-stone-500">2,184 total | 28 pending approval</span>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead><tr class="text-xs uppercase tracking-wider text-stone-400 dark:text-stone-500 border-b border-amber-200/30 dark:border-stone-700 bg-amber-50/50 dark:bg-stone-900/50"><th class="text-left px-6 py-3 font-medium">Name</th><th class="text-left px-6 py-3 font-medium hidden sm:table-cell">Email</th><th class="text-left px-6 py-3 font-medium">Tier</th><th class="text-left px-6 py-3 font-medium hidden md:table-cell">Joined</th><th class="text-left px-6 py-3 font-medium">Status</th></tr></thead>
+                <tbody class="divide-y divide-amber-200/30 dark:divide-stone-700">
+                  <tr class="hover:bg-amber-50/50 dark:hover:bg-stone-700/50 transition"><td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">Jamie D.</td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden sm:table-cell">jamie@email.com</td><td class="px-6 py-3.5"><span class="text-xs bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-400 px-2 py-1 rounded-full font-medium">Gold</span></td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden md:table-cell">Jan 2024</td><td class="px-6 py-3.5"><span class="text-xs text-green-700 dark:text-green-400 font-medium">Active</span></td></tr>
+                  <tr class="hover:bg-amber-50/50 dark:hover:bg-stone-700/50 transition"><td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">Marcus T.</td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden sm:table-cell">marcus@email.com</td><td class="px-6 py-3.5"><span class="text-xs bg-stone-200 dark:bg-stone-700 text-stone-800 dark:text-stone-200 px-2 py-1 rounded-full font-medium">Platinum</span></td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden md:table-cell">Mar 2025</td><td class="px-6 py-3.5"><span class="text-xs text-green-700 dark:text-green-400 font-medium">Active</span></td></tr>
+                  <tr class="hover:bg-amber-50/50 dark:hover:bg-stone-700/50 transition"><td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">Sophia K.</td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden sm:table-cell">sophia@email.com</td><td class="px-6 py-3.5"><span class="text-xs bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-400 px-2 py-1 rounded-full font-medium">Bronze</span></td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden md:table-cell">Dec 2025</td><td class="px-6 py-3.5"><span class="text-xs text-green-700 dark:text-green-400 font-medium">Active</span></td></tr>
+                  <tr class="hover:bg-amber-50/50 dark:hover:bg-stone-700/50 transition"><td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">Lisa M.</td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden sm:table-cell">lisa@email.com</td><td class="px-6 py-3.5"><span class="text-xs bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-400 px-2 py-1 rounded-full font-medium">Gold</span></td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden md:table-cell">Jun 2026</td><td class="px-6 py-3.5"><span class="text-xs text-yellow-700 dark:text-yellow-400 font-medium">Pending</span></td></tr>
+                  <tr class="hover:bg-amber-50/50 dark:hover:bg-stone-700/50 transition"><td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">Carlos R.</td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden sm:table-cell">carlos@email.com</td><td class="px-6 py-3.5"><span class="text-xs bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-400 px-2 py-1 rounded-full font-medium">Gold</span></td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden md:table-cell">Apr 2026</td><td class="px-6 py-3.5"><span class="text-xs text-green-700 dark:text-green-400 font-medium">Active</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div id="page-staff" class="page-section">
+          <div class="bg-white dark:bg-stone-800 rounded-xl border border-amber-200/30 dark:border-stone-700 overflow-hidden">
+            <div class="flex items-center justify-between px-5 py-4 border-b border-amber-200/30 dark:border-stone-700">
+              <h2 class="text-xl font-medium text-stone-800 dark:text-amber-100 font-heading">Staff Roster</h2>
+              <button class="text-xs bg-amber-800 text-white px-3 py-1.5 rounded-lg font-medium hover:bg-amber-900 transition">+ Add Staff</button>
+            </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 p-5">
+              <div class="flex items-center gap-4 border border-amber-200/30 dark:border-stone-700 rounded-xl p-4 hover:shadow-md transition"><div class="w-12 h-12 rounded-full bg-amber-700 text-white text-sm font-medium flex items-center justify-center shrink-0">MA</div><div class="flex-1 min-w-0"><p class="text-sm font-medium text-stone-800 dark:text-stone-200">Marco A.</p><p class="text-xs text-stone-500">Head Brewer</p><span class="text-xs text-green-700 dark:text-green-400 font-medium">Full-time</span></div></div>
+              <div class="flex items-center gap-4 border border-amber-200/30 dark:border-stone-700 rounded-xl p-4 hover:shadow-md transition"><div class="w-12 h-12 rounded-full bg-amber-700 text-white text-sm font-medium flex items-center justify-center shrink-0">LN</div><div class="flex-1 min-w-0"><p class="text-sm font-medium text-stone-800 dark:text-stone-200">Lena N.</p><p class="text-xs text-stone-500">Taproom Manager</p><span class="text-xs text-green-700 dark:text-green-400 font-medium">Full-time</span></div></div>
+              <div class="flex items-center gap-4 border border-amber-200/30 dark:border-stone-700 rounded-xl p-4 hover:shadow-md transition"><div class="w-12 h-12 rounded-full bg-amber-700 text-white text-sm font-medium flex items-center justify-center shrink-0">DJ</div><div class="flex-1 min-w-0"><p class="text-sm font-medium text-stone-800 dark:text-stone-200">Derek J.</p><p class="text-xs text-stone-500">Shift Lead</p><span class="text-xs text-green-700 dark:text-green-400 font-medium">Part-time</span></div></div>
+              <div class="flex items-center gap-4 border border-amber-200/30 dark:border-stone-700 rounded-xl p-4 hover:shadow-md transition"><div class="w-12 h-12 rounded-full bg-amber-700 text-white text-sm font-medium flex items-center justify-center shrink-0">EP</div><div class="flex-1 min-w-0"><p class="text-sm font-medium text-stone-800 dark:text-stone-200">Elena P.</p><p class="text-xs text-stone-500">Bartender</p><span class="text-xs text-green-700 dark:text-green-400 font-medium">Full-time</span></div></div>
+              <div class="flex items-center gap-4 border border-amber-200/30 dark:border-stone-700 rounded-xl p-4 hover:shadow-md transition"><div class="w-12 h-12 rounded-full bg-amber-700 text-white text-sm font-medium flex items-center justify-center shrink-0">JW</div><div class="flex-1 min-w-0"><p class="text-sm font-medium text-stone-800 dark:text-stone-200">Jake W.</p><p class="text-xs text-stone-500">Assistant Brewer</p><span class="text-xs text-green-700 dark:text-green-400 font-medium">Part-time</span></div></div>
+              <div class="flex items-center gap-4 border border-amber-200/30 dark:border-stone-700 rounded-xl p-4 hover:shadow-md transition"><div class="w-12 h-12 rounded-full bg-amber-700 text-white text-sm font-medium flex items-center justify-center shrink-0">AR</div><div class="flex-1 min-w-0"><p class="text-sm font-medium text-stone-800 dark:text-stone-200">Ana R.</p><p class="text-xs text-stone-500">Events Coordinator</p><span class="text-xs text-green-700 dark:text-green-400 font-medium">Full-time</span></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="page-reports" class="page-section">
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+            <div class="bg-white dark:bg-stone-800 rounded-xl p-4 border border-amber-200/30 dark:border-stone-700"><p class="text-xs text-stone-500 uppercase tracking-wider font-medium">Revenue MTD</p><p class="text-2xl font-medium text-amber-800 dark:text-amber-400 font-heading mt-0.5">$28.4k</p><p class="text-xs text-green-600 mt-0.5">+12.3% vs last month</p></div>
+            <div class="bg-white dark:bg-stone-800 rounded-xl p-4 border border-amber-200/30 dark:border-stone-700"><p class="text-xs text-stone-500 uppercase tracking-wider font-medium">Orders MTD</p><p class="text-2xl font-medium text-amber-800 dark:text-amber-400 font-heading mt-0.5">847</p><p class="text-xs text-green-600 mt-0.5">+5.2% vs last month</p></div>
+            <div class="bg-white dark:bg-stone-800 rounded-xl p-4 border border-amber-200/30 dark:border-stone-700"><p class="text-xs text-stone-500 uppercase tracking-wider font-medium">Avg Daily</p><p class="text-2xl font-medium text-amber-800 dark:text-amber-400 font-heading mt-0.5">342</p><p class="text-xs text-green-600 mt-0.5">+8.1% vs last month</p></div>
+            <div class="bg-white dark:bg-stone-800 rounded-xl p-4 border border-amber-200/30 dark:border-stone-700"><p class="text-xs text-stone-500 uppercase tracking-wider font-medium">Growth Rate</p><p class="text-2xl font-medium text-amber-800 dark:text-amber-400 font-heading mt-0.5">15.6%</p><p class="text-xs text-green-600 mt-0.5">YoY growth</p></div>
+          </div>
+          <div class="grid lg:grid-cols-3 gap-6">
+            <div class="lg:col-span-2 bg-white dark:bg-stone-800 rounded-xl p-6 border border-amber-200/30 dark:border-stone-700">
+              <div class="flex items-center justify-between mb-6">
+                <h3 class="font-medium text-stone-800 dark:text-amber-100 font-heading text-lg">Monthly Revenue</h3>
+                <select class="text-xs border border-amber-200/30 dark:border-stone-700 bg-amber-50/50 dark:bg-stone-900 rounded-lg px-2.5 py-1.5 text-stone-600 dark:text-stone-400 focus:outline-none"><option>This Year</option><option>Last Year</option></select>
+              </div>
+              <div class="relative">
+                <div class="absolute left-0 inset-y-0 flex flex-col justify-between text-[10px] text-stone-400 pr-2 pb-6">
+                  <span>$6k</span>
+                  <span>$4.5k</span>
+                  <span>$3k</span>
+                  <span>$1.5k</span>
+                  <span>0</span>
+                </div>
+                <div class="flex items-end gap-2 sm:gap-3 h-44 pl-10 border-l-2 border-b-2 border-amber-200/30 dark:border-stone-700">
+                  <div class="flex-1 flex flex-col justify-end items-center gap-1 relative h-full"><span class="text-[9px] text-amber-700 dark:text-amber-400 font-medium absolute -top-4">$1.8k</span><div class="w-full bg-gradient-to-t from-amber-600 to-amber-400 rounded-t rounded-tr-none bar" style="height:30%"></div><span class="text-[9px] text-stone-500">Jan</span></div>
+                  <div class="flex-1 flex flex-col justify-end items-center gap-1 relative h-full"><span class="text-[9px] text-amber-700 dark:text-amber-400 font-medium absolute -top-4">$2.5k</span><div class="w-full bg-gradient-to-t from-amber-600 to-amber-400 rounded-t bar" style="height:42%"></div><span class="text-[9px] text-stone-500">Feb</span></div>
+                  <div class="flex-1 flex flex-col justify-end items-center gap-1 relative h-full"><span class="text-[9px] text-amber-700 dark:text-amber-400 font-medium absolute -top-4">$2.2k</span><div class="w-full bg-gradient-to-t from-amber-600 to-amber-400 rounded-t bar" style="height:36%"></div><span class="text-[9px] text-stone-500">Mar</span></div>
+                  <div class="flex-1 flex flex-col justify-end items-center gap-1 relative h-full"><span class="text-[9px] text-amber-700 dark:text-amber-400 font-medium absolute -top-4">$3.1k</span><div class="w-full bg-gradient-to-t from-amber-600 to-amber-400 rounded-t bar" style="height:52%"></div><span class="text-[9px] text-stone-500">Apr</span></div>
+                  <div class="flex-1 flex flex-col justify-end items-center gap-1 relative h-full"><span class="text-[9px] text-amber-700 dark:text-amber-400 font-medium absolute -top-4">$4.2k</span><div class="w-full bg-gradient-to-t from-amber-600 to-amber-400 rounded-t bar" style="height:70%"></div><span class="text-[9px] text-stone-500">May</span></div>
+                  <div class="flex-1 flex flex-col justify-end items-center gap-1 relative h-full"><span class="text-[9px] text-amber-700 dark:text-amber-400 font-medium absolute -top-4">$5.6k</span><div class="w-full bg-gradient-to-t from-amber-600 to-amber-400 rounded-t bar" style="height:95%"></div><span class="text-[9px] text-stone-500">Jun</span></div>
+                  <div class="flex-1 flex flex-col justify-end items-center gap-1 relative h-full"><span class="text-[9px] text-amber-700 dark:text-amber-400 font-medium absolute -top-4">$4.8k</span><div class="w-full bg-gradient-to-t from-amber-600 to-amber-400 rounded-t bar" style="height:80%"></div><span class="text-[9px] text-stone-500">Jul</span></div>
+                  <div class="flex-1 flex flex-col justify-end items-center gap-1 relative h-full"><span class="text-[9px] text-amber-700 dark:text-amber-400 font-medium absolute -top-4">$3.9k</span><div class="w-full bg-gradient-to-t from-amber-600 to-amber-400 rounded-t bar" style="height:65%"></div><span class="text-[9px] text-stone-500">Aug</span></div>
+                </div>
+              </div>
+              <div class="flex items-center justify-between mt-4 pt-4 border-t border-amber-200/30 dark:border-stone-700">
+                <span class="text-xs text-stone-500">Total YTD: <strong class="text-stone-800 dark:text-stone-200">$29.1k</strong></span>
+                <span class="text-xs text-green-600 font-medium flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>+18.4% vs last year</span>
+              </div>
+            </div>
+            <div class="space-y-6">
+              <div class="bg-white dark:bg-stone-800 rounded-xl p-6 border border-amber-200/30 dark:border-stone-700">
+                <h3 class="font-medium text-stone-800 dark:text-amber-100 font-heading text-lg mb-5">Beer Style Mix</h3>
+                <div class="space-y-3.5">
+                  <div><div class="flex justify-between text-sm mb-1"><span class="text-stone-700 dark:text-stone-300">IPAs</span><span class="text-stone-500 font-medium">38%</span></div><div class="w-full h-2 bg-amber-100 dark:bg-stone-700 rounded-full"><div class="h-2 bg-amber-700 rounded-full" style="width:38%"></div></div></div>
+                  <div><div class="flex justify-between text-sm mb-1"><span class="text-stone-700 dark:text-stone-300">Stouts & Porters</span><span class="text-stone-500 font-medium">24%</span></div><div class="w-full h-2 bg-amber-100 dark:bg-stone-700 rounded-full"><div class="h-2 bg-stone-700 dark:bg-stone-400 rounded-full" style="width:24%"></div></div></div>
+                  <div><div class="flex justify-between text-sm mb-1"><span class="text-stone-700 dark:text-stone-300">Wheat & Sours</span><span class="text-stone-500 font-medium">20%</span></div><div class="w-full h-2 bg-amber-100 dark:bg-stone-700 rounded-full"><div class="h-2 bg-amber-500 rounded-full" style="width:20%"></div></div></div>
+                  <div><div class="flex justify-between text-sm mb-1"><span class="text-stone-700 dark:text-stone-300">Lagers & Pilsners</span><span class="text-stone-500 font-medium">12%</span></div><div class="w-full h-2 bg-amber-100 dark:bg-stone-700 rounded-full"><div class="h-2 bg-yellow-600 rounded-full" style="width:12%"></div></div></div>
+                  <div><div class="flex justify-between text-sm mb-1"><span class="text-stone-700 dark:text-stone-300">Seasonal</span><span class="text-stone-500 font-medium">6%</span></div><div class="w-full h-2 bg-amber-100 dark:bg-stone-700 rounded-full"><div class="h-2 bg-red-600 rounded-full" style="width:6%"></div></div></div>
+                </div>
+              </div>
+              <!-- <div class="bg-white dark:bg-stone-800 rounded-xl p-6 border border-amber-200/30 dark:border-stone-700">
+                <h3 class="font-medium text-stone-800 dark:text-amber-100 font-heading text-lg mb-4">Key Metrics</h3>
+                <div class="grid grid-cols-2 gap-3">
+                  <div class="bg-amber-50 dark:bg-stone-900 rounded-lg p-3"><p class="text-[10px] text-stone-500 uppercase tracking-wider">Avg Order</p><p class="text-lg font-medium text-stone-800 dark:text-stone-200 font-heading">$24.60</p></div>
+                  <div class="bg-amber-50 dark:bg-stone-900 rounded-lg p-3"><p class="text-[10px] text-stone-500 uppercase tracking-wider">Retention</p><p class="text-lg font-medium text-green-700 dark:text-green-400 font-heading">94.2%</p></div>
+                  <div class="bg-amber-50 dark:bg-stone-900 rounded-lg p-3"><p class="text-[10px] text-stone-500 uppercase tracking-wider">Busiest Day</p><p class="text-lg font-medium text-stone-800 dark:text-stone-200 font-heading">Sat</p></div>
+                  <div class="bg-amber-50 dark:bg-stone-900 rounded-lg p-3"><p class="text-[10px] text-stone-500 uppercase tracking-wider">Avg Pints</p><p class="text-lg font-medium text-stone-800 dark:text-stone-200 font-heading">2.3</p></div>
+                </div>
+              </div> -->
+            </div>
+          </div>
+          <div class="grid md:grid-cols-2 gap-6 mt-6">
+            <div class="bg-white dark:bg-stone-800 rounded-xl p-6 border border-amber-200/30 dark:border-stone-700">
+              <h3 class="font-medium text-stone-800 dark:text-amber-100 font-heading text-lg mb-5">Weekly Trend (Last 4 Weeks)</h3>
+              <div class="flex items-end gap-1 sm:gap-2 h-28">
+                <div class="flex-1 flex flex-col justify-end items-center gap-0.5 h-full"><div class="w-full bg-gradient-to-t from-amber-600/60 to-amber-400/60 rounded-t" style="height:55%"></div><span class="text-[8px] text-stone-500 mt-0.5">W1</span></div>
+                <div class="flex-1 flex flex-col justify-end items-center gap-0.5 h-full"><div class="w-full bg-gradient-to-t from-amber-600/60 to-amber-400/60 rounded-t" style="height:62%"></div><span class="text-[8px] text-stone-500 mt-0.5">W2</span></div>
+                <div class="flex-1 flex flex-col justify-end items-center gap-0.5 h-full"><div class="w-full bg-gradient-to-t from-amber-600/60 to-amber-400/60 rounded-t" style="height:78%"></div><span class="text-[8px] text-stone-500 mt-0.5">W3</span></div>
+                <div class="flex-1 flex flex-col justify-end items-center gap-0.5 h-full"><div class="w-full bg-gradient-to-t from-amber-600 to-amber-400 rounded-t" style="height:100%"></div><span class="text-[8px] text-amber-700 dark:text-amber-400 font-medium mt-0.5">W4</span></div>
+                <div class="flex-1 flex flex-col justify-end items-center gap-0.5 h-full"><div class="w-full bg-gradient-to-t from-amber-600/40 to-amber-400/40 rounded-t" style="height:45%"></div><span class="text-[8px] text-stone-500 mt-0.5">W5</span></div>
+              </div>
+            </div>
+            <div class="bg-white dark:bg-stone-800 rounded-xl p-6 border border-amber-200/30 dark:border-stone-700">
+              <h3 class="font-medium text-stone-800 dark:text-amber-100 font-heading text-lg mb-5">Tier Distribution</h3>
+              <div class="flex items-center justify-center gap-6">
+                <div class="relative w-28 h-28">
+                  <svg viewBox="0 0 36 36" class="w-28 h-28 -rotate-90">
+                    <circle cx="18" cy="18" r="15.5" fill="none" stroke="#fef3c7" stroke-width="3.5" class="dark:stroke-stone-700"></circle>
+                    <circle cx="18" cy="18" r="15.5" fill="none" stroke="#b45309" stroke-width="3.5" stroke-dasharray="38 100" stroke-dashoffset="0" stroke-linecap="butt"></circle>
+                    <circle cx="18" cy="18" r="15.5" fill="none" stroke="#d6d3d1" stroke-width="3.5" stroke-dasharray="24 100" stroke-dashoffset="-38" stroke-linecap="butt" class="dark:stroke-stone-400"></circle>
+                    <circle cx="18" cy="18" r="15.5" fill="none" stroke="#fcd34d" stroke-width="3.5" stroke-dasharray="20 100" stroke-dashoffset="-62" stroke-linecap="butt"></circle>
+                    <circle cx="18" cy="18" r="15.5" fill="none" stroke="#44403c" stroke-width="3.5" stroke-dasharray="18 100" stroke-dashoffset="-82" stroke-linecap="butt" class="dark:stroke-stone-200"></circle>
+                  </svg>
+                  <span class="absolute inset-0 flex items-center justify-center text-lg font-medium text-stone-800 dark:text-amber-100 font-heading">2.1k</span>
+                </div>
+                <div class="space-y-1.5 text-xs">
+                  <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-amber-700 shrink-0"></span><span class="text-stone-600 dark:text-stone-400">Bronze (38%)</span></div>
+                  <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-stone-400 dark:bg-stone-200 shrink-0"></span><span class="text-stone-600 dark:text-stone-400">Silver (24%)</span></div>
+                  <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-amber-400 shrink-0"></span><span class="text-stone-600 dark:text-stone-400">Gold (20%)</span></div>
+                  <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-stone-800 dark:bg-white shrink-0"></span><span class="text-stone-600 dark:text-stone-400">Platinum (18%)</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="page-promotions" class="page-section">
+          <div class="bg-white dark:bg-stone-800 rounded-xl border border-amber-200/30 dark:border-stone-700 overflow-hidden">
+            <div class="flex items-center justify-between px-5 py-4 border-b border-amber-200/30 dark:border-stone-700">
+              <h2 class="text-xl font-medium text-stone-800 dark:text-amber-100 font-heading">Promotions & Discounts</h2>
+              <button class="text-xs bg-amber-800 text-white px-3 py-1.5 rounded-lg font-medium hover:bg-amber-900 transition">+ New Promo</button>
+            </div>
+            <div class="grid sm:grid-cols-2 gap-4 p-5">
+              <div class="border border-green-200/30 dark:border-green-900/30 bg-green-50/50 dark:bg-green-900/10 rounded-xl p-5"><div class="flex items-center justify-between"><p class="font-medium text-stone-800 dark:text-stone-200 text-sm">Happy Hour</p><span class="text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-2 py-0.5 rounded-full font-medium">Active</span></div><p class="text-xs text-stone-500 mt-1">Mon-Fri 3-6 PM | $1 off all pints</p><p class="text-xs text-stone-500">Valid until: Ongoing</p></div>
+              <div class="border border-amber-200/30 dark:border-stone-700 rounded-xl p-5"><div class="flex items-center justify-between"><p class="font-medium text-stone-800 dark:text-stone-200 text-sm">Summer Seasonal</p><span class="text-xs bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 px-2 py-0.5 rounded-full font-medium">Scheduled</span></div><p class="text-xs text-stone-500 mt-1">15% off Citra Haze & Hoppy Wheat</p><p class="text-xs text-stone-500">Starts: Jul 1, 2026</p></div>
+              <div class="border border-amber-200/30 dark:border-stone-700 rounded-xl p-5"><div class="flex items-center justify-between"><p class="font-medium text-stone-800 dark:text-stone-200 text-sm">Mug Club Monday</p><span class="text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-2 py-0.5 rounded-full font-medium">Active</span></div><p class="text-xs text-stone-500 mt-1">Members get 20% off all merch</p><p class="text-xs text-stone-500">Every Monday</p></div>
+              <div class="border border-amber-200/30 dark:border-stone-700 rounded-xl p-5"><div class="flex items-center justify-between"><p class="font-medium text-stone-800 dark:text-stone-200 text-sm">First Pint Free</p><span class="text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 px-2 py-0.5 rounded-full font-medium">New</span></div><p class="text-xs text-stone-500 mt-1">New members get first pint free</p><p class="text-xs text-stone-500">Valid until: Aug 31, 2026</p></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="page-settings" class="page-section">
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-white dark:bg-stone-800 rounded-xl p-6 border border-amber-200/30 dark:border-stone-700">
+              <h3 class="font-medium text-stone-800 dark:text-amber-100 font-heading text-lg mb-5">General Settings</h3>
+              <div class="space-y-4">
+                <div><label class="block text-xs font-medium text-stone-600 dark:text-stone-400 uppercase tracking-wider mb-1">Brewery Name</label><input type="text" value="Hops Haven Brewery" class="w-full border border-amber-200/30 dark:border-stone-700 bg-amber-50/50 dark:bg-stone-900 rounded-lg px-3.5 py-2 text-sm text-stone-800 dark:text-stone-200 focus:outline-none focus:ring-2 focus:ring-amber-600"></div>
+                <div><label class="block text-xs font-medium text-stone-600 dark:text-stone-400 uppercase tracking-wider mb-1">Email</label><input type="email" value="hello@hopshaven.com" class="w-full border border-amber-200/30 dark:border-stone-700 bg-amber-50/50 dark:bg-stone-900 rounded-lg px-3.5 py-2 text-sm text-stone-800 dark:text-stone-200 focus:outline-none focus:ring-2 focus:ring-amber-600"></div>
+                <div><label class="block text-xs font-medium text-stone-600 dark:text-stone-400 uppercase tracking-wider mb-1">Phone</label><input type="text" value="(503) 555-0199" class="w-full border border-amber-200/30 dark:border-stone-700 bg-amber-50/50 dark:bg-stone-900 rounded-lg px-3.5 py-2 text-sm text-stone-800 dark:text-stone-200 focus:outline-none focus:ring-2 focus:ring-amber-600"></div>
+              </div>
+            </div>
+            <div class="bg-white dark:bg-stone-800 rounded-xl p-6 border border-amber-200/30 dark:border-stone-700">
+              <h3 class="font-medium text-stone-800 dark:text-amber-100 font-heading text-lg mb-5">Preferences</h3>
+              <div class="space-y-4">
+                <div class="flex items-center justify-between"><span class="text-sm text-stone-700 dark:text-stone-300">Email Notifications</span><div class="w-10 h-5 rounded-full bg-amber-600 relative cursor-pointer"><div class="w-4 h-4 rounded-full bg-white absolute top-0.5 right-0.5"></div></div></div>
+                <div class="flex items-center justify-between"><span class="text-sm text-stone-700 dark:text-stone-300">SMS Alerts</span><div class="w-10 h-5 rounded-full bg-stone-300 dark:bg-stone-700 relative cursor-pointer"><div class="w-4 h-4 rounded-full bg-white absolute top-0.5 left-0.5"></div></div></div>
+                <div class="flex items-center justify-between"><span class="text-sm text-stone-700 dark:text-stone-300">Auto-Restock Alerts</span><div class="w-10 h-5 rounded-full bg-amber-600 relative cursor-pointer"><div class="w-4 h-4 rounded-full bg-white absolute top-0.5 right-0.5"></div></div></div>
+                <div class="flex items-center justify-between"><span class="text-sm text-stone-700 dark:text-stone-300">Public Booking</span><div class="w-10 h-5 rounded-full bg-stone-300 dark:bg-stone-700 relative cursor-pointer"><div class="w-4 h-4 rounded-full bg-white absolute top-0.5 left-0.5"></div></div></div>
+                <button class="w-full mt-4 bg-amber-800 text-white py-2.5 rounded-lg font-medium hover:bg-amber-900 transition text-sm">Save Settings</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <script>
+    function themeToggle() {
+      const html = document.documentElement;
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+    }
+    if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme:dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    }
+
+    function rtlToggle() {
+      const html = document.documentElement;
+      const isRtl = html.getAttribute('dir') === 'rtl';
+      html.setAttribute('dir', isRtl ? 'ltr' : 'rtl');
+      localStorage.setItem('rtl', isRtl ? 'ltr' : 'rtl');
+      document.querySelectorAll('.dir-icon').forEach(el => el.textContent = isRtl ? 'LTR' : 'RTL');
+    }
+    if (localStorage.getItem('rtl') === 'rtl') {
+      document.documentElement.setAttribute('dir', 'rtl');
+    }
+    document.querySelectorAll('.dir-icon').forEach(el => el.textContent = document.documentElement.getAttribute('dir') === 'rtl' ? 'LTR' : 'RTL');
+
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('-translate-x-full');
+      document.getElementById('sidebar-overlay').classList.toggle('hidden');
+    }
+
+    function navigate(page) {
+      document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+      document.getElementById('page-' + page).classList.add('active');
+      document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+      document.querySelector('[data-page="' + page + '"]').classList.add('active');
+      if (window.innerWidth < 1024) toggleSidebar();
+    }
+
+    function searchDashboard(val) {
+      const dd = document.getElementById('search-dropdown');
+      if (dd) {
+        if (val.length > 0) {
+          dd.classList.remove('hidden');
+          dd.querySelectorAll('a').forEach(a => {
+            a.style.display = a.textContent.toLowerCase().includes(val.toLowerCase()) ? 'flex' : 'none';
+          });
+        } else {
+          dd.querySelectorAll('a').forEach(a => a.style.display = 'flex');
+        }
+      }
+    }
+
+    function logout() {
+      window.location.href = '../login.html';
+    }
+  </script>
+</body>
+</html>

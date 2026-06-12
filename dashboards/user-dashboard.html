@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Dashboard | Hops Haven</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ['Playfair Display', 'serif'],
+            body: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            amber: {
+              50: '#fefaf0',
+              100: '#fdf3d7',
+              700: '#b45309',
+              800: '#92400e',
+              900: '#78350f',
+            },
+            stone: {
+              800: '#292524',
+              900: '#1c1917',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    h1, h2, h3, h4, h5, h6 { font-family: 'Playfair Display', Georgia, serif; }
+    .sidebar-link { border-right: 3px solid transparent; }
+    .sidebar-link.active, .sidebar-link:hover { border-right-color: #b45309; background: rgba(180, 83, 9, 0.08); }
+    .dark .sidebar-link.active, .dark .sidebar-link:hover { background: rgba(180, 83, 9, 0.15); }
+    .stat-card { transition: transform 0.2s, box-shadow 0.2s; }
+    .stat-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+    .dark .stat-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+    .bar { transition: height 0.6s ease-out; }
+    .sb-scroll::-webkit-scrollbar { display: none; }
+    .sb-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+    .page-section { display: none; }
+    .page-section.active { display: block; }
+  </style>
+</head>
+<body class="bg-amber-50 dark:bg-stone-900 dark:text-gray-100 min-h-screen font-body">
+
+  <div class="flex h-screen overflow-hidden">
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar" class="fixed lg:static inset-y-0 left-0 z-50 w-64 bg-white dark:bg-stone-950 border-r border-amber-200/30 dark:border-stone-800 flex flex-col shrink-0 -translate-x-full lg:translate-x-0 transition-transform duration-300">
+      <div class="h-16 flex items-center px-5 border-b border-amber-200/30 dark:border-stone-800">
+        <a href="../index.html" class="flex items-center gap-2.5 group">
+          <div class="w-9 h-9 lg:w-10 lg:h-10 rounded-xl bg-gradient-to-br from-amber-700 to-amber-900 dark:from-amber-600 dark:to-amber-800 flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow">
+            <svg class="w-5 h-5 lg:w-5.5 lg:h-5.5 text-amber-50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 11h1a3 3 0 0 1 0 6h-1"/>
+              <path d="M9 5h6"/>
+              <path d="M9 5v2a3 3 0 0 0 3 3h0a3 3 0 0 0 3-3V5"/>
+              <path d="M9 11v8a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-8"/>
+              <path d="M5 11h4"/>
+              <path d="M5 13h4"/>
+              <path d="M5 15h3"/>
+            </svg>
+          </div>
+          <div class="flex flex-col leading-none">
+            <span class="text-lg lg:text-xl font-medium tracking-tight text-amber-800 dark:text-amber-400 font-heading group-hover:text-amber-700 dark:group-hover:text-amber-300 transition-colors">Hops Haven</span>
+            <span class="text-[10px] lg:text-xs text-stone-400 dark:text-stone-500 font-medium tracking-wider uppercase">Craft Brewery</span>
+          </div>
+        </a>
+      </div>
+      <nav class="sb-scroll flex-1 overflow-y-auto px-3 py-4 space-y-0.5">
+        <div class="text-[10px] uppercase tracking-widest text-stone-400 dark:text-stone-500 font-medium px-3 pt-4 pb-1.5">Main</div>
+        <a href="#" onclick="navigate('dashboard')" data-page="dashboard" class="sidebar-link active flex items-center gap-3 px-3 py-2.5 rounded-l text-sm font-medium text-amber-800 dark:text-amber-400">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Dashboard
+        </a>
+        <a href="#" onclick="navigate('orders')" data-page="orders" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-l text-sm font-medium text-stone-800 dark:text-stone-200 hover:text-amber-800 dark:hover:text-amber-400 transition">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>My Orders
+        </a>
+        <a href="#" onclick="navigate('events')" data-page="events" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-l text-sm font-medium text-stone-800 dark:text-stone-200 hover:text-amber-800 dark:hover:text-amber-400 transition">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Events
+        </a>
+        <a href="#" onclick="navigate('menu')" data-page="menu" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-l text-sm font-medium text-stone-800 dark:text-stone-200 hover:text-amber-800 dark:hover:text-amber-400 transition">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l9 4.5v9L12 20l-9-4.5v-9L12 2z"/><path d="M12 11v9"/><path d="M3 6.5l9 4.5 9-4.5"/></svg>Beer Menu
+        </a>
+        <div class="text-[10px] uppercase tracking-widest text-stone-400 dark:text-stone-500 font-medium px-3 pt-5 pb-1.5">Account</div>
+        <a href="#" onclick="navigate('membership')" data-page="membership" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-l text-sm font-medium text-stone-800 dark:text-stone-200 hover:text-amber-800 dark:hover:text-amber-400 transition">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Membership
+        </a>
+        <a href="#" onclick="navigate('rewards')" data-page="rewards" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-l text-sm font-medium text-stone-800 dark:text-stone-200 hover:text-amber-800 dark:hover:text-amber-400 transition">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12l2 2 4-4"/></svg>Rewards
+        </a>
+        <a href="#" onclick="navigate('settings')" data-page="settings" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-l text-sm font-medium text-stone-800 dark:text-stone-200 hover:text-amber-800 dark:hover:text-amber-400 transition">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Settings
+        </a>
+      </nav>
+      <div class="p-3 border-t border-amber-200/30 dark:border-stone-800">
+        <button onclick="logout()" class="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium text-white bg-red-700 hover:bg-red-600 transition shadow">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Logout
+        </button>
+      </div>
+    </aside>
+
+    <!-- SIDEBAR OVERLAY (mobile) -->
+    <div id="sidebar-overlay" class="fixed inset-0 bg-stone-900/50 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
+
+    <!-- MAIN -->
+    <div class="flex-1 flex flex-col min-w-0">
+
+      <!-- HEADER -->
+      <header class="h-16 bg-white dark:bg-stone-950 border-b border-amber-200/30 dark:border-stone-800 flex items-center justify-between px-4 lg:px-6 shrink-0">
+        <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-lg hover:bg-amber-100 dark:hover:bg-stone-800 transition">
+          <svg class="w-5 h-5 text-stone-600 dark:text-stone-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
+        <div class="hidden sm:flex items-center flex-1 max-w-lg mx-4 lg:mx-6 relative">
+          <div class="w-full flex items-center gap-2.5 px-4 py-2 bg-amber-50/70 dark:bg-stone-900 border border-amber-200/30 dark:border-stone-700 rounded-xl">
+            <svg class="w-4 h-4 text-stone-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            <input id="global-search" type="text" placeholder="Search beers, events, orders..." oninput="searchDashboard(this.value)" onfocus="document.getElementById('search-dropdown').classList.remove('hidden')" onblur="setTimeout(()=>document.getElementById('search-dropdown').classList.add('hidden'),200)" class="w-full bg-transparent text-sm text-stone-600 dark:text-stone-400 placeholder-stone-400 focus:outline-none">
+          </div>
+          <div id="search-dropdown" class="hidden absolute top-full left-0 right-0 mt-2 bg-white dark:bg-stone-900 border border-amber-200/30 dark:border-stone-700 rounded-xl shadow-xl z-50 py-2 max-h-64 overflow-y-auto">
+            <div class="px-4 py-1.5 text-[10px] uppercase tracking-wider text-stone-400 font-medium">Recent</div>
+            <a href="#" class="flex items-center gap-3 px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-amber-50 dark:hover:bg-stone-800 transition"><svg class="w-3.5 h-3.5 text-stone-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>Order #2042 - In Progress</a>
+            <a href="#" class="flex items-center gap-3 px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-amber-50 dark:hover:bg-stone-800 transition"><svg class="w-3.5 h-3.5 text-stone-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>Trivia Night - Jun 12</a>
+            <a href="#" class="flex items-center gap-3 px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-amber-50 dark:hover:bg-stone-800 transition"><svg class="w-3.5 h-3.5 text-stone-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>Gold Member - 1,240 points</a>
+            <a href="#" class="flex items-center gap-3 px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-amber-50 dark:hover:bg-stone-800 transition"><svg class="w-3.5 h-3.5 text-stone-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>Riverstone IPA - Back in stock</a>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="themeToggle()" class="p-2 rounded-lg hover:bg-amber-100 dark:hover:bg-stone-800 transition" title="Toggle theme">
+            <svg class="w-5 h-5 text-stone-600 dark:text-stone-400 dark:hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="w-5 h-5 text-amber-400 hidden dark:block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          </button>
+          <button onclick="rtlToggle()" class="p-2 rounded-lg hover:bg-amber-100 dark:hover:bg-stone-800 transition" title="Toggle RTL">
+            <span class="text-xs font-medium text-stone-600 dark:text-stone-400 dir-icon">RTL</span>
+          </button>
+          <div class="flex items-center gap-2 pl-2 border-l border-amber-200/30 dark:border-stone-800">
+            <div class="w-8 h-8 rounded-full bg-amber-700 flex items-center justify-center text-white text-xs font-medium">JD</div>
+            <span class="hidden md:block text-sm font-medium text-stone-700 dark:text-stone-300">Jamie D.</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- CONTENT -->
+      <main class="flex-1 overflow-y-auto p-4 lg:p-6 space-y-6">
+
+        <div id="page-dashboard" class="page-section active">
+          <!-- STATS -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+            <div class="stat-card bg-white dark:bg-stone-800 rounded-xl p-4 border border-amber-200/30 dark:border-stone-700">
+              <p class="text-xs uppercase tracking-wider text-stone-400 dark:text-stone-500 font-medium">Total Orders</p>
+              <p class="text-2xl lg:text-3xl font-medium text-amber-800 dark:text-amber-400 mt-1 font-heading">24</p>
+              <p class="text-xs text-green-600 mt-1 flex items-center gap-1"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>+3 this month</p>
+            </div>
+            <div class="stat-card bg-white dark:bg-stone-800 rounded-xl p-4 border border-amber-200/30 dark:border-stone-700">
+              <p class="text-xs uppercase tracking-wider text-stone-400 dark:text-stone-500 font-medium">Reward Points</p>
+              <p class="text-2xl lg:text-3xl font-medium text-amber-800 dark:text-amber-400 mt-1 font-heading">1,240</p>
+              <p class="text-xs text-green-600 mt-1 flex items-center gap-1"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>+160 this month</p>
+            </div>
+            <div class="stat-card bg-white dark:bg-stone-800 rounded-xl p-4 border border-amber-200/30 dark:border-stone-700">
+              <p class="text-xs uppercase tracking-wider text-stone-400 dark:text-stone-500 font-medium">Tier Status</p>
+              <p class="text-2xl lg:text-3xl font-medium text-amber-800 dark:text-amber-400 mt-1 font-heading">Gold</p>
+              <p class="text-xs text-amber-700 dark:text-amber-400 mt-1 flex items-center gap-1"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>2 visits from Platinum</p>
+            </div>
+            <div class="stat-card bg-white dark:bg-stone-800 rounded-xl p-4 border border-amber-200/30 dark:border-stone-700">
+              <p class="text-xs uppercase tracking-wider text-stone-400 dark:text-stone-500 font-medium">Visits This Month</p>
+              <p class="text-2xl lg:text-3xl font-medium text-amber-800 dark:text-amber-400 mt-1 font-heading">8</p>
+              <p class="text-xs text-green-600 mt-1 flex items-center gap-1"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>+2 vs last month</p>
+            </div>
+          </div>
+
+          <!-- CHART + QUICK ACTIONS -->
+          <div class="grid lg:grid-cols-3 gap-6 mb-6">
+            <div class="lg:col-span-2 bg-white dark:bg-stone-800 rounded-xl p-6 border border-amber-200/30 dark:border-stone-700">
+              <div class="flex items-center justify-between mb-6">
+                <h3 class="font-medium text-stone-800 dark:text-amber-100 font-heading text-lg">Monthly Spending</h3>
+                <select class="text-xs border border-amber-200/30 dark:border-stone-700 bg-amber-50/50 dark:bg-stone-900 rounded-lg px-2.5 py-1.5 text-stone-600 dark:text-stone-400 focus:outline-none">
+                  <option>This Year</option>
+                  <option>Last Year</option>
+                </select>
+              </div>
+              <div class="flex items-end gap-2 sm:gap-3 h-44">
+                <div class="flex-1 flex flex-col justify-end items-center gap-1.5 h-full">
+                  <span class="text-[10px] text-stone-400 font-medium">$48</span>
+                  <div class="w-full bg-gradient-to-t from-amber-600 to-amber-400 rounded-t bar" style="height:55%"></div>
+                  <span class="text-[10px] text-stone-500 dark:text-stone-500">Jan</span>
+                </div>
+                <div class="flex-1 flex flex-col justify-end items-center gap-1.5 h-full">
+                  <span class="text-[10px] text-stone-400 font-medium">$62</span>
+                  <div class="w-full bg-gradient-to-t from-amber-600 to-amber-400 rounded-t bar" style="height:70%"></div>
+                  <span class="text-[10px] text-stone-500 dark:text-stone-500">Feb</span>
+                </div>
+                <div class="flex-1 flex flex-col justify-end items-center gap-1.5 h-full">
+                  <span class="text-[10px] text-stone-400 font-medium">$45</span>
+                  <div class="w-full bg-gradient-to-t from-amber-600 to-amber-400 rounded-t bar" style="height:52%"></div>
+                  <span class="text-[10px] text-stone-500 dark:text-stone-500">Mar</span>
+                </div>
+                <div class="flex-1 flex flex-col justify-end items-center gap-1.5 h-full">
+                  <span class="text-[10px] text-stone-400 font-medium">$71</span>
+                  <div class="w-full bg-gradient-to-t from-amber-600 to-amber-400 rounded-t bar" style="height:82%"></div>
+                  <span class="text-[10px] text-stone-500 dark:text-stone-500">Apr</span>
+                </div>
+                <div class="flex-1 flex flex-col justify-end items-center gap-1.5 h-full">
+                  <span class="text-[10px] text-stone-400 font-medium">$88</span>
+                  <div class="w-full bg-gradient-to-t from-amber-600 to-amber-400 rounded-t bar" style="height:100%"></div>
+                  <span class="text-[10px] text-stone-500 dark:text-stone-500">May</span>
+                </div>
+                <div class="flex-1 flex flex-col justify-end items-center gap-1.5 h-full">
+                  <span class="text-[10px] text-stone-400 font-medium">$39</span>
+                  <div class="w-full bg-gradient-to-t from-amber-600 to-amber-400 rounded-t bar" style="height:45%"></div>
+                  <span class="text-[10px] text-stone-500 dark:text-stone-500">Jun</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- QUICK ACTIONS -->
+            <div class="bg-white dark:bg-stone-800 rounded-xl p-6 border border-amber-200/30 dark:border-stone-700">
+              <h3 class="font-medium text-stone-800 dark:text-amber-100 font-heading text-lg mb-4">Quick Actions</h3>
+              <div class="space-y-2.5">
+                <button class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-stone-700 dark:text-stone-300 hover:bg-amber-100 dark:hover:bg-stone-700 transition text-left">
+                  <span class="w-8 h-8 rounded-lg bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center shrink-0"><svg class="w-4 h-4 text-amber-700 dark:text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+                  Order Beer Online
+                </button>
+                <button class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-stone-700 dark:text-stone-300 hover:bg-amber-100 dark:hover:bg-stone-700 transition text-left">
+                  <span class="w-8 h-8 rounded-lg bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center shrink-0"><svg class="w-4 h-4 text-amber-700 dark:text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>
+                  Book an Event
+                </button>
+                <button class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-stone-700 dark:text-stone-300 hover:bg-amber-100 dark:hover:bg-stone-700 transition text-left">
+                  <span class="w-8 h-8 rounded-lg bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center shrink-0"><svg class="w-4 h-4 text-amber-700 dark:text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+                  Upgrade Membership
+                </button>
+                <button class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-stone-700 dark:text-stone-300 hover:bg-amber-100 dark:hover:bg-stone-700 transition text-left">
+                  <span class="w-8 h-8 rounded-lg bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center shrink-0"><svg class="w-4 h-4 text-amber-700 dark:text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12l2 2 4-4"/></svg></span>
+                  Redeem Rewards
+                </button>
+                <button class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-stone-700 dark:text-stone-300 hover:bg-amber-100 dark:hover:bg-stone-700 transition text-left">
+                  <span class="w-8 h-8 rounded-lg bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center shrink-0"><svg class="w-4 h-4 text-amber-700 dark:text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
+                  View Full Menu
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- RECENT ORDERS TABLE -->
+          <div class="bg-white dark:bg-stone-800 rounded-xl border border-amber-200/30 dark:border-stone-700 overflow-hidden">
+            <div class="flex items-center justify-between px-6 py-4 border-b border-amber-200/30 dark:border-stone-700">
+              <h3 class="font-medium text-stone-800 dark:text-amber-100 font-heading text-lg">My Recent Orders</h3>
+              <a href="#" class="text-xs font-medium text-amber-700 dark:text-amber-400 hover:underline">View All</a>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="text-xs uppercase tracking-wider text-stone-400 dark:text-stone-500 border-b border-amber-200/30 dark:border-stone-700 bg-amber-50/50 dark:bg-stone-900/50">
+                    <th class="text-left px-6 py-3 font-medium">Order</th>
+                    <th class="text-left px-6 py-3 font-medium hidden sm:table-cell">Items</th>
+                    <th class="text-left px-6 py-3 font-medium hidden md:table-cell">Date</th>
+                    <th class="text-left px-6 py-3 font-medium">Total</th>
+                    <th class="text-left px-6 py-3 font-medium">Status</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-amber-200/30 dark:divide-stone-700">
+                  <tr class="hover:bg-amber-50/50 dark:hover:bg-stone-700/50 transition">
+                    <td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">#2042</td>
+                    <td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden sm:table-cell">3 items</td>
+                    <td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden md:table-cell">Jun 10, 2026</td>
+                    <td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">$38.50</td>
+                    <td class="px-6 py-3.5"><span class="text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-2 py-1 rounded-full font-medium">Delivered</span></td>
+                  </tr>
+                  <tr class="hover:bg-amber-50/50 dark:hover:bg-stone-700/50 transition">
+                    <td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">#2041</td>
+                    <td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden sm:table-cell">2 items</td>
+                    <td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden md:table-cell">Jun 8, 2026</td>
+                    <td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">$24.00</td>
+                    <td class="px-6 py-3.5"><span class="text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 px-2 py-1 rounded-full font-medium">In Progress</span></td>
+                  </tr>
+                  <tr class="hover:bg-amber-50/50 dark:hover:bg-stone-700/50 transition">
+                    <td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">#2038</td>
+                    <td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden sm:table-cell">5 items</td>
+                    <td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden md:table-cell">Jun 5, 2026</td>
+                    <td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">$64.25</td>
+                    <td class="px-6 py-3.5"><span class="text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-2 py-1 rounded-full font-medium">Delivered</span></td>
+                  </tr>
+                  <tr class="hover:bg-amber-50/50 dark:hover:bg-stone-700/50 transition">
+                    <td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">#2035</td>
+                    <td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden sm:table-cell">1 item</td>
+                    <td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden md:table-cell">Jun 2, 2026</td>
+                    <td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">$9.50</td>
+                    <td class="px-6 py-3.5"><span class="text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-2 py-1 rounded-full font-medium">Delivered</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- BOTTOM ROW -->
+          <div class="grid md:grid-cols-2 gap-6 mt-6">
+            <div class="bg-white dark:bg-stone-800 rounded-xl p-6 border border-amber-200/30 dark:border-stone-700">
+              <h3 class="font-medium text-stone-800 dark:text-amber-100 font-heading text-lg mb-4">My Favorite Beers</h3>
+              <div class="space-y-3.5">
+                <div class="flex items-center gap-3">
+                  <span class="w-6 h-6 rounded-full bg-amber-700 text-white text-xs font-medium flex items-center justify-center shrink-0">1</span>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-stone-800 dark:text-stone-200 truncate">Riverstone IPA</p>
+                    <div class="w-full h-2 bg-amber-100 dark:bg-stone-700 rounded-full mt-1"><div class="h-2 bg-amber-600 rounded-full" style="width:95%"></div></div>
+                  </div>
+                  <span class="text-xs font-medium text-stone-500 dark:text-stone-400 shrink-0">18 pts</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="w-6 h-6 rounded-full bg-amber-700 text-white text-xs font-medium flex items-center justify-center shrink-0">2</span>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-stone-800 dark:text-stone-200 truncate">Amber Horizon</p>
+                    <div class="w-full h-2 bg-amber-100 dark:bg-stone-700 rounded-full mt-1"><div class="h-2 bg-amber-600 rounded-full" style="width:72%"></div></div>
+                  </div>
+                  <span class="text-xs font-medium text-stone-500 dark:text-stone-400 shrink-0">12 pts</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="w-6 h-6 rounded-full bg-amber-700 text-white text-xs font-medium flex items-center justify-center shrink-0">3</span>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-stone-800 dark:text-stone-200 truncate">Midnight Stout</p>
+                    <div class="w-full h-2 bg-amber-100 dark:bg-stone-700 rounded-full mt-1"><div class="h-2 bg-amber-600 rounded-full" style="width:58%"></div></div>
+                  </div>
+                  <span class="text-xs font-medium text-stone-500 dark:text-stone-400 shrink-0">8 pts</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="w-6 h-6 rounded-full bg-stone-300 dark:bg-stone-600 text-white text-xs font-medium flex items-center justify-center shrink-0">4</span>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-stone-800 dark:text-stone-200 truncate">Hoppy Wheat</p>
+                    <div class="w-full h-2 bg-amber-100 dark:bg-stone-700 rounded-full mt-1"><div class="h-2 bg-amber-600 rounded-full" style="width:40%"></div></div>
+                  </div>
+                  <span class="text-xs font-medium text-stone-500 dark:text-stone-400 shrink-0">5 pts</span>
+                </div>
+              </div>
+            </div>
+            <div class="bg-white dark:bg-stone-800 rounded-xl p-6 border border-amber-200/30 dark:border-stone-700">
+              <h3 class="font-medium text-stone-800 dark:text-amber-100 font-heading text-lg mb-4">Upcoming Events</h3>
+              <div class="space-y-4">
+                <div class="flex items-start gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center shrink-0"><span class="text-xs font-medium text-amber-800 dark:text-amber-400">12</span></div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-stone-800 dark:text-stone-200">Trivia Night</p>
+                    <p class="text-xs text-stone-500">Jun 12 | 7:00 PM | Hosted by Lena</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center shrink-0"><span class="text-xs font-medium text-amber-800 dark:text-amber-400">14</span></div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-stone-800 dark:text-stone-200">Live Music - Acoustic Set</p>
+                    <p class="text-xs text-stone-500">Jun 14 | 8:00 PM | The River Trio</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center shrink-0"><span class="text-xs font-medium text-amber-800 dark:text-amber-400">15</span></div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-stone-800 dark:text-stone-200">Brewery Tour + Tasting</p>
+                    <p class="text-xs text-stone-500">Jun 15 | 2:00 PM | Led by Marco</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center shrink-0"><span class="text-xs font-medium text-amber-800 dark:text-amber-400">18</span></div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-stone-800 dark:text-stone-200">Paint & Pint Night</p>
+                    <p class="text-xs text-stone-500">Jun 18 | 6:30 PM | 20 spots</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="page-orders" class="page-section">
+          <div class="bg-white dark:bg-stone-800 rounded-xl border border-amber-200/30 dark:border-stone-700 overflow-hidden">
+            <div class="flex flex-wrap items-center justify-between gap-4 px-5 py-4 border-b border-amber-200/30 dark:border-stone-700">
+              <div>
+                <h2 class="text-xl font-medium text-stone-800 dark:text-amber-100 font-heading">My Orders</h2>
+                <p class="text-xs text-stone-500 mt-0.5">24 total | 20 delivered | 3 in progress | 1 cancelled</p>
+              </div>
+              <div class="flex gap-2">
+                <select class="text-xs border border-amber-200/30 dark:border-stone-700 bg-amber-50/50 dark:bg-stone-900 rounded-lg px-2.5 py-1.5 text-stone-600 dark:text-stone-400 focus:outline-none"><option>All Status</option><option>Delivered</option><option>In Progress</option><option>Cancelled</option></select>
+                <select class="text-xs border border-amber-200/30 dark:border-stone-700 bg-amber-50/50 dark:bg-stone-900 rounded-lg px-2.5 py-1.5 text-stone-600 dark:text-stone-400 focus:outline-none"><option>Last 30 Days</option><option>Last 90 Days</option><option>All Time</option></select>
+              </div>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead><tr class="text-xs uppercase tracking-wider text-stone-400 dark:text-stone-500 border-b border-amber-200/30 dark:border-stone-700 bg-amber-50/50 dark:bg-stone-900/50"><th class="text-left px-6 py-3 font-medium">Order</th><th class="text-left px-6 py-3 font-medium hidden sm:table-cell">Items</th><th class="text-left px-6 py-3 font-medium hidden md:table-cell">Date</th><th class="text-left px-6 py-3 font-medium">Total</th><th class="text-left px-6 py-3 font-medium">Status</th><th class="text-right px-6 py-3 font-medium">Action</th></tr></thead>
+                <tbody class="divide-y divide-amber-200/30 dark:divide-stone-700">
+                  <tr class="hover:bg-amber-50/50 dark:hover:bg-stone-700/50 transition"><td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">#2042</td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden sm:table-cell">3 items</td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden md:table-cell">Jun 10</td><td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">$38.50</td><td class="px-6 py-3.5"><span class="text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-2 py-1 rounded-full font-medium">Delivered</span></td><td class="px-6 py-3.5 text-right"><button class="text-xs text-amber-700 dark:text-amber-400 font-medium hover:underline">Reorder</button></td></tr>
+                  <tr class="hover:bg-amber-50/50 dark:hover:bg-stone-700/50 transition"><td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">#2041</td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden sm:table-cell">2 items</td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden md:table-cell">Jun 8</td><td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">$24.00</td><td class="px-6 py-3.5"><span class="text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 px-2 py-1 rounded-full font-medium">In Progress</span></td><td class="px-6 py-3.5 text-right"><button class="text-xs text-amber-700 dark:text-amber-400 font-medium hover:underline">Track</button></td></tr>
+                  <tr class="hover:bg-amber-50/50 dark:hover:bg-stone-700/50 transition"><td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">#2038</td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden sm:table-cell">5 items</td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden md:table-cell">Jun 5</td><td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">$64.25</td><td class="px-6 py-3.5"><span class="text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-2 py-1 rounded-full font-medium">Delivered</span></td><td class="px-6 py-3.5 text-right"><button class="text-xs text-amber-700 dark:text-amber-400 font-medium hover:underline">Reorder</button></td></tr>
+                  <tr class="hover:bg-amber-50/50 dark:hover:bg-stone-700/50 transition"><td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">#2035</td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden sm:table-cell">1 item</td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden md:table-cell">Jun 2</td><td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">$9.50</td><td class="px-6 py-3.5"><span class="text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-2 py-1 rounded-full font-medium">Delivered</span></td><td class="px-6 py-3.5 text-right"><button class="text-xs text-amber-700 dark:text-amber-400 font-medium hover:underline">Reorder</button></td></tr>
+                  <tr class="hover:bg-amber-50/50 dark:hover:bg-stone-700/50 transition"><td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">#2032</td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden sm:table-cell">4 items</td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden md:table-cell">May 28</td><td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">$52.75</td><td class="px-6 py-3.5"><span class="text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-2 py-1 rounded-full font-medium">Delivered</span></td><td class="px-6 py-3.5 text-right"><button class="text-xs text-amber-700 dark:text-amber-400 font-medium hover:underline">Reorder</button></td></tr>
+                  <tr class="hover:bg-amber-50/50 dark:hover:bg-stone-700/50 transition"><td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">#2030</td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden sm:table-cell">2 items</td><td class="px-6 py-3.5 text-stone-600 dark:text-stone-400 hidden md:table-cell">May 25</td><td class="px-6 py-3.5 font-medium text-stone-800 dark:text-stone-200">$18.00</td><td class="px-6 py-3.5"><span class="text-xs bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 px-2 py-1 rounded-full font-medium">Cancelled</span></td><td class="px-6 py-3.5 text-right"><button class="text-xs text-amber-700 dark:text-amber-400 font-medium hover:underline">View</button></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="flex items-center justify-between px-6 py-3 border-t border-amber-200/30 dark:border-stone-700 text-xs text-stone-500">
+              <span>Showing 1-6 of 24</span>
+              <div class="flex gap-1"><button class="px-2.5 py-1 rounded border border-amber-200/30 dark:border-stone-700 hover:bg-amber-100 dark:hover:bg-stone-700 transition">Prev</button><button class="px-2.5 py-1 rounded bg-amber-800 text-white border border-amber-800">1</button><button class="px-2.5 py-1 rounded border border-amber-200/30 dark:border-stone-700 hover:bg-amber-100 dark:hover:bg-stone-700 transition">2</button><button class="px-2.5 py-1 rounded border border-amber-200/30 dark:border-stone-700 hover:bg-amber-100 dark:hover:bg-stone-700 transition">3</button><button class="px-2.5 py-1 rounded border border-amber-200/30 dark:border-stone-700 hover:bg-amber-100 dark:hover:bg-stone-700 transition">Next</button></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="page-events" class="page-section">
+          <div class="bg-white dark:bg-stone-800 rounded-xl border border-amber-200/30 dark:border-stone-700 overflow-hidden">
+            <div class="flex items-center justify-between px-5 py-4 border-b border-amber-200/30 dark:border-stone-700">
+              <h2 class="text-xl font-medium text-stone-800 dark:text-amber-100 font-heading">Upcoming Events</h2>
+              <button class="text-xs bg-amber-800 text-white px-3 py-1.5 rounded-lg font-medium hover:bg-amber-900 transition">+ Book Event</button>
+            </div>
+            <div class="divide-y divide-amber-200/30 dark:divide-stone-700">
+              <div class="flex items-center gap-4 px-5 py-4 hover:bg-amber-50/50 dark:hover:bg-stone-700/50 transition"><div class="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center shrink-0"><span class="text-xs font-medium text-amber-800 dark:text-amber-400 text-center leading-tight">JUN<br>12</span></div><div class="flex-1 min-w-0"><p class="text-sm font-medium text-stone-800 dark:text-stone-200">Trivia Night</p><p class="text-xs text-stone-500">7:00 PM - 9:00 PM | Hosted by Lena</p></div><span class="text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-2 py-1 rounded-full font-medium shrink-0">Booked</span></div>
+              <div class="flex items-center gap-4 px-5 py-4 hover:bg-amber-50/50 dark:hover:bg-stone-700/50 transition"><div class="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center shrink-0"><span class="text-xs font-medium text-amber-800 dark:text-amber-400 text-center leading-tight">JUN<br>14</span></div><div class="flex-1 min-w-0"><p class="text-sm font-medium text-stone-800 dark:text-stone-200">Live Music - Acoustic Set</p><p class="text-xs text-stone-500">8:00 PM - 11:00 PM | The River Trio</p></div><span class="text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-2 py-1 rounded-full font-medium shrink-0">Booked</span></div>
+              <div class="flex items-center gap-4 px-5 py-4 hover:bg-amber-50/50 dark:hover:bg-stone-700/50 transition"><div class="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center shrink-0"><span class="text-xs font-medium text-amber-800 dark:text-amber-400 text-center leading-tight">JUN<br>15</span></div><div class="flex-1 min-w-0"><p class="text-sm font-medium text-stone-800 dark:text-stone-200">Brewery Tour + Tasting</p><p class="text-xs text-stone-500">2:00 PM - 4:00 PM | Led by Marco</p></div><span class="text-xs bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-400 px-2 py-1 rounded-full font-medium shrink-0">Available</span></div>
+              <div class="flex items-center gap-4 px-5 py-4 hover:bg-amber-50/50 dark:hover:bg-stone-700/50 transition"><div class="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center shrink-0"><span class="text-xs font-medium text-amber-800 dark:text-amber-400 text-center leading-tight">JUN<br>18</span></div><div class="flex-1 min-w-0"><p class="text-sm font-medium text-stone-800 dark:text-stone-200">Paint & Pint Night</p><p class="text-xs text-stone-500">6:30 PM - 8:30 PM | 20 spots</p></div><span class="text-xs bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-400 px-2 py-1 rounded-full font-medium shrink-0">Available</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="page-menu" class="page-section">
+          <div class="bg-white dark:bg-stone-800 rounded-xl border border-amber-200/30 dark:border-stone-700 overflow-hidden">
+            <div class="flex items-center justify-between px-5 py-4 border-b border-amber-200/30 dark:border-stone-700">
+              <h2 class="text-xl font-medium text-stone-800 dark:text-amber-100 font-heading">Our Beers</h2>
+              <span class="text-xs text-stone-500">12 beers on tap | 6 in cans</span>
+            </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 p-5">
+              <div class="border border-amber-200/30 dark:border-stone-700 rounded-xl p-5 hover:shadow-md transition"><div class="flex items-center justify-between"><p class="text-sm font-medium text-stone-800 dark:text-stone-200">Riverstone IPA</p><span class="text-xs text-green-600 font-medium bg-green-50 dark:bg-green-900/20 px-2 py-0.5 rounded-full">On Tap</span></div><p class="text-xs text-stone-500 mt-1">ABV: 6.8% | IBU: 65</p><p class="text-xs text-stone-400 mt-1">Citra & Mosaic hops with a piney finish</p><button class="mt-3 text-xs text-amber-700 dark:text-amber-400 font-medium hover:underline">Add to Order</button></div>
+              <div class="border border-amber-200/30 dark:border-stone-700 rounded-xl p-5 hover:shadow-md transition"><div class="flex items-center justify-between"><p class="text-sm font-medium text-stone-800 dark:text-stone-200">Amber Horizon</p><span class="text-xs text-green-600 font-medium bg-green-50 dark:bg-green-900/20 px-2 py-0.5 rounded-full">On Tap</span></div><p class="text-xs text-stone-500 mt-1">ABV: 5.2% | IBU: 28</p><p class="text-xs text-stone-400 mt-1">Smooth caramel malt with a gentle hop bite</p><button class="mt-3 text-xs text-amber-700 dark:text-amber-400 font-medium hover:underline">Add to Order</button></div>
+              <div class="border border-amber-200/30 dark:border-stone-700 rounded-xl p-5 hover:shadow-md transition"><div class="flex items-center justify-between"><p class="text-sm font-medium text-stone-800 dark:text-stone-200">Midnight Stout</p><span class="text-xs text-blue-600 font-medium bg-blue-50 dark:bg-blue-900/20 px-2 py-0.5 rounded-full">In Cans</span></div><p class="text-xs text-stone-500 mt-1">ABV: 7.4% | IBU: 45</p><p class="text-xs text-stone-400 mt-1">Rich dark roast with hints of chocolate</p><button class="mt-3 text-xs text-amber-700 dark:text-amber-400 font-medium hover:underline">Add to Order</button></div>
+              <div class="border border-amber-200/30 dark:border-stone-700 rounded-xl p-5 hover:shadow-md transition"><div class="flex items-center justify-between"><p class="text-sm font-medium text-stone-800 dark:text-stone-200">Citra Haze</p><span class="text-xs text-green-600 font-medium bg-green-50 dark:bg-green-900/20 px-2 py-0.5 rounded-full">On Tap</span></div><p class="text-xs text-stone-500 mt-1">ABV: 6.2% | IBU: 35</p><p class="text-xs text-stone-400 mt-1">Juicy New England IPA with tropical notes</p><button class="mt-3 text-xs text-amber-700 dark:text-amber-400 font-medium hover:underline">Add to Order</button></div>
+              <div class="border border-amber-200/30 dark:border-stone-700 rounded-xl p-5 hover:shadow-md transition"><div class="flex items-center justify-between"><p class="text-sm font-medium text-stone-800 dark:text-stone-200">Maple Porter</p><span class="text-xs text-blue-600 font-medium bg-blue-50 dark:bg-blue-900/20 px-2 py-0.5 rounded-full">In Cans</span></div><p class="text-xs text-stone-500 mt-1">ABV: 5.8% | IBU: 22</p><p class="text-xs text-stone-400 mt-1">Vermont maple sweetness meets roasted malt</p><button class="mt-3 text-xs text-amber-700 dark:text-amber-400 font-medium hover:underline">Add to Order</button></div>
+              <div class="border border-amber-200/30 dark:border-stone-700 rounded-xl p-5 hover:shadow-md transition"><div class="flex items-center justify-between"><p class="text-sm font-medium text-stone-800 dark:text-stone-200">Hoppy Wheat</p><span class="text-xs text-green-600 font-medium bg-green-50 dark:bg-green-900/20 px-2 py-0.5 rounded-full">On Tap</span></div><p class="text-xs text-stone-500 mt-1">ABV: 4.8% | IBU: 18</p><p class="text-xs text-stone-400 mt-1">Light & crisp wheat ale with citrus notes</p><button class="mt-3 text-xs text-amber-700 dark:text-amber-400 font-medium hover:underline">Add to Order</button></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="page-membership" class="page-section">
+          <div class="grid md:grid-cols-3 gap-6">
+            <div class="md:col-span-2 bg-white dark:bg-stone-800 rounded-xl p-6 border border-amber-200/30 dark:border-stone-700">
+              <h3 class="font-medium text-stone-800 dark:text-amber-100 font-heading text-lg mb-4">My Membership</h3>
+              <div class="flex items-center gap-4 p-4 bg-amber-50 dark:bg-stone-900 rounded-xl border border-amber-200/30 dark:border-stone-700">
+                <div class="w-16 h-16 rounded-full bg-gradient-to-br from-amber-600 to-amber-400 flex items-center justify-center text-white text-xl font-medium font-heading shrink-0">G</div>
+                <div><p class="text-lg font-medium text-stone-800 dark:text-stone-200 font-heading">Gold Member</p><p class="text-sm text-stone-500">Member since Jan 2024 | 2 visits from Platinum upgrade</p><div class="w-full h-2 bg-amber-100 dark:bg-stone-700 rounded-full mt-2 max-w-xs"><div class="h-2 bg-gradient-to-r from-amber-400 to-amber-700 rounded-full" style="width:72%"></div></div></div>
+              </div>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4">
+                <div class="bg-amber-50 dark:bg-stone-900 rounded-lg p-3 text-center"><p class="text-lg font-medium text-amber-800 dark:text-amber-400 font-heading">18</p><p class="text-[10px] text-stone-500 uppercase tracking-wider">Visits This Year</p></div>
+                <div class="bg-amber-50 dark:bg-stone-900 rounded-lg p-3 text-center"><p class="text-lg font-medium text-amber-800 dark:text-amber-400 font-heading">1,240</p><p class="text-[10px] text-stone-500 uppercase tracking-wider">Points Earned</p></div>
+                <div class="bg-amber-50 dark:bg-stone-900 rounded-lg p-3 text-center"><p class="text-lg font-medium text-amber-800 dark:text-amber-400 font-heading">4</p><p class="text-[10px] text-stone-500 uppercase tracking-wider">Free Pints</p></div>
+                <div class="bg-amber-50 dark:bg-stone-900 rounded-lg p-3 text-center"><p class="text-lg font-medium text-amber-800 dark:text-amber-400 font-heading">12%</p><p class="text-[10px] text-stone-500 uppercase tracking-wider">Member Discount</p></div>
+              </div>
+            </div>
+            <div class="bg-white dark:bg-stone-800 rounded-xl p-6 border border-amber-200/30 dark:border-stone-700">
+              <h3 class="font-medium text-stone-800 dark:text-amber-100 font-heading text-lg mb-4">Tier Benefits</h3>
+              <div class="space-y-3"><div class="flex items-center gap-3"><svg class="w-5 h-5 text-green-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span class="text-sm text-stone-700 dark:text-stone-300">12% off all pints</span></div><div class="flex items-center gap-3"><svg class="w-5 h-5 text-green-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span class="text-sm text-stone-700 dark:text-stone-300">1 free pint per month</span></div><div class="flex items-center gap-3"><svg class="w-5 h-5 text-green-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span class="text-sm text-stone-700 dark:text-stone-300">Exclusive release access</span></div><div class="flex items-center gap-3"><svg class="w-5 h-5 text-green-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span class="text-sm text-stone-700 dark:text-stone-300">Birthday growler fill</span></div><div class="flex items-center gap-3"><svg class="w-5 h-5 text-green-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span class="text-sm text-stone-700 dark:text-stone-300">Invite to members-only events</span></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="page-rewards" class="page-section">
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-white dark:bg-stone-800 rounded-xl p-6 border border-amber-200/30 dark:border-stone-700">
+              <h3 class="font-medium text-stone-800 dark:text-amber-100 font-heading text-lg mb-4">Points History</h3>
+              <div class="space-y-3">
+                <div class="flex items-center justify-between"><span class="text-sm text-stone-700 dark:text-stone-300">Order #2042</span><span class="text-sm font-medium text-green-600">+38 pts</span></div>
+                <div class="flex items-center justify-between"><span class="text-sm text-stone-700 dark:text-stone-300">Order #2041</span><span class="text-sm font-medium text-green-600">+24 pts</span></div>
+                <div class="flex items-center justify-between"><span class="text-sm text-stone-700 dark:text-stone-300">Visit Bonus (Jun)</span><span class="text-sm font-medium text-green-600">+50 pts</span></div>
+                <div class="flex items-center justify-between"><span class="text-sm text-stone-700 dark:text-stone-300">Reward Redeemed - Free Pint</span><span class="text-sm font-medium text-red-600">-100 pts</span></div>
+                <div class="flex items-center justify-between"><span class="text-sm text-stone-700 dark:text-stone-300">Birthday Bonus</span><span class="text-sm font-medium text-green-600">+200 pts</span></div>
+              </div>
+            </div>
+            <div class="bg-white dark:bg-stone-800 rounded-xl p-6 border border-amber-200/30 dark:border-stone-700">
+              <h3 class="font-medium text-stone-800 dark:text-amber-100 font-heading text-lg mb-4">Available Rewards</h3>
+              <div class="space-y-3">
+                <div class="flex items-center justify-between p-3 bg-amber-50 dark:bg-stone-900 rounded-lg"><div><p class="text-sm font-medium text-stone-800 dark:text-stone-200">Free Pint</p><p class="text-xs text-stone-500">Redeem for any house pint</p></div><span class="text-xs font-medium text-amber-800 dark:text-amber-400">100 pts</span></div>
+                <div class="flex items-center justify-between p-3 bg-amber-50 dark:bg-stone-900 rounded-lg"><div><p class="text-sm font-medium text-stone-800 dark:text-stone-200">Growler Fill</p><p class="text-xs text-stone-500">64oz growler of your choice</p></div><span class="text-xs font-medium text-amber-800 dark:text-amber-400">350 pts</span></div>
+                <div class="flex items-center justify-between p-3 bg-amber-50 dark:bg-stone-900 rounded-lg"><div><p class="text-sm font-medium text-stone-800 dark:text-stone-200">Merch Discount 20%</p><p class="text-xs text-stone-500">One-time use on any merch</p></div><span class="text-xs font-medium text-amber-800 dark:text-amber-400">500 pts</span></div>
+                <div class="flex items-center justify-between p-3 bg-amber-50 dark:bg-stone-900 rounded-lg"><div><p class="text-sm font-medium text-stone-800 dark:text-stone-200">VIP Event Ticket</p><p class="text-xs text-stone-500">Exclusive members-only tasting</p></div><span class="text-xs font-medium text-amber-800 dark:text-amber-400">1,000 pts</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="page-settings" class="page-section">
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-white dark:bg-stone-800 rounded-xl p-6 border border-amber-200/30 dark:border-stone-700">
+              <h3 class="font-medium text-stone-800 dark:text-amber-100 font-heading text-lg mb-5">Profile</h3>
+              <div class="space-y-4">
+                <div><label class="block text-xs font-medium text-stone-600 dark:text-stone-400 uppercase tracking-wider mb-1">Full Name</label><input type="text" value="Jamie D." class="w-full border border-amber-200/30 dark:border-stone-700 bg-amber-50/50 dark:bg-stone-900 rounded-lg px-3.5 py-2 text-sm text-stone-800 dark:text-stone-200 focus:outline-none focus:ring-2 focus:ring-amber-600"></div>
+                <div><label class="block text-xs font-medium text-stone-600 dark:text-stone-400 uppercase tracking-wider mb-1">Email</label><input type="email" value="jamie@email.com" class="w-full border border-amber-200/30 dark:border-stone-700 bg-amber-50/50 dark:bg-stone-900 rounded-lg px-3.5 py-2 text-sm text-stone-800 dark:text-stone-200 focus:outline-none focus:ring-2 focus:ring-amber-600"></div>
+                <div><label class="block text-xs font-medium text-stone-600 dark:text-stone-400 uppercase tracking-wider mb-1">Phone</label><input type="text" value="(503) 555-0142" class="w-full border border-amber-200/30 dark:border-stone-700 bg-amber-50/50 dark:bg-stone-900 rounded-lg px-3.5 py-2 text-sm text-stone-800 dark:text-stone-200 focus:outline-none focus:ring-2 focus:ring-amber-600"></div>
+              </div>
+            </div>
+            <div class="bg-white dark:bg-stone-800 rounded-xl p-6 border border-amber-200/30 dark:border-stone-700">
+              <h3 class="font-medium text-stone-800 dark:text-amber-100 font-heading text-lg mb-5">Preferences</h3>
+              <div class="space-y-4">
+                <div class="flex items-center justify-between"><span class="text-sm text-stone-700 dark:text-stone-300">Email Notifications</span><div class="w-10 h-5 rounded-full bg-amber-600 relative cursor-pointer"><div class="w-4 h-4 rounded-full bg-white absolute top-0.5 right-0.5"></div></div></div>
+                <div class="flex items-center justify-between"><span class="text-sm text-stone-700 dark:text-stone-300">SMS Alerts</span><div class="w-10 h-5 rounded-full bg-stone-300 dark:bg-stone-700 relative cursor-pointer"><div class="w-4 h-4 rounded-full bg-white absolute top-0.5 left-0.5"></div></div></div>
+                <div class="flex items-center justify-between"><span class="text-sm text-stone-700 dark:text-stone-300">Event Reminders</span><div class="w-10 h-5 rounded-full bg-amber-600 relative cursor-pointer"><div class="w-4 h-4 rounded-full bg-white absolute top-0.5 right-0.5"></div></div></div>
+                <div class="flex items-center justify-between"><span class="text-sm text-stone-700 dark:text-stone-300">Membership Updates</span><div class="w-10 h-5 rounded-full bg-amber-600 relative cursor-pointer"><div class="w-4 h-4 rounded-full bg-white absolute top-0.5 right-0.5"></div></div></div>
+                <button class="w-full mt-2 bg-amber-800 text-white text-sm font-medium py-2.5 rounded-lg hover:bg-amber-900 transition">Save Changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <script>
+    function navigate(page) {
+      document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.sidebar-link').forEach(l => {
+        l.classList.remove('active', 'text-amber-800', 'dark:text-amber-400');
+        l.classList.add('text-stone-800', 'dark:text-stone-200');
+      });
+      document.getElementById('page-' + page).classList.add('active');
+      const link = document.querySelector(`[data-page="${page}"]`);
+      if (link) {
+        link.classList.add('active', 'text-amber-800', 'dark:text-amber-400');
+        link.classList.remove('text-stone-800', 'dark:text-stone-200');
+      }
+      if (window.innerWidth < 1024) { toggleSidebar(); }
+    }
+
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('-translate-x-full');
+      document.getElementById('sidebar-overlay').classList.toggle('hidden');
+    }
+
+    function themeToggle() {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+    }
+
+    function rtlToggle() {
+      const html = document.documentElement;
+      html.dir = html.dir === 'rtl' ? 'ltr' : 'rtl';
+      localStorage.setItem('dir', html.dir);
+      document.querySelectorAll('.dir-icon').forEach(el => el.textContent = html.dir === 'rtl' ? 'LTR' : 'RTL');
+    }
+
+    if (localStorage.getItem('theme') === 'dark') document.documentElement.classList.add('dark');
+    if (localStorage.getItem('dir') === 'rtl') document.documentElement.dir = 'rtl';
+    document.querySelectorAll('.dir-icon').forEach(el => el.textContent = document.documentElement.dir === 'rtl' ? 'LTR' : 'RTL');
+
+    function searchDashboard(query) {
+      const dd = document.getElementById('search-dropdown');
+      if (!dd) return;
+      const items = dd.querySelectorAll('a');
+      const recentLabel = dd.querySelector('div:first-child');
+      if (!query.trim()) {
+        items.forEach(a => a.style.display = 'flex');
+        if (recentLabel) recentLabel.textContent = 'Recent';
+        return;
+      }
+      if (recentLabel) recentLabel.textContent = 'Results';
+      const q = query.toLowerCase();
+      items.forEach(a => {
+        a.style.display = a.textContent.toLowerCase().includes(q) ? 'flex' : 'none';
+      });
+    }
+
+    function logout() {
+      window.location.href = '../login.html';
+    }
+  </script>
+</body>
+</html>

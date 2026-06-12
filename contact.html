@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | Hops Haven</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ['Playfair Display', 'serif'],
+            body: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            amber: {
+              50: '#fefaf0',
+              100: '#fdf3d7',
+              700: '#b45309',
+              800: '#92400e',
+              900: '#78350f',
+            },
+            stone: {
+              800: '#292524',
+              900: '#1c1917',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    h1, h2, h3, h4, h5, h6 { font-family: 'Playfair Display', Georgia, serif; }
+  </style>
+</head>
+<body class="bg-amber-50 dark:bg-stone-900 dark:text-gray-100 min-h-screen flex flex-col font-body pt-16">
+  <script src="js/theme.js"></script>
+  <script src="js/rtl.js"></script>
+  <script src="js/navbar.js"></script>
+
+  <main class="flex-1">
+
+    <!-- HERO -->
+    <section class="relative bg-stone-900 text-white min-h-[50vh] flex items-center overflow-hidden">
+      <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('assets/contact-hero.jpg');"></div>
+      <div class="absolute inset-0 bg-gradient-to-br from-stone-900/85 via-stone-900/80 to-amber-950/80"></div>
+      <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-20">
+        <div class="grid lg:grid-cols-5 gap-10 items-center">
+          <div class="lg:col-span-3">
+            <span class="text-amber-400 uppercase tracking-[0.2em] text-sm font-medium">Get in Touch</span>
+            <h1 class="text-5xl md:text-6xl font-medium text-amber-100 font-heading leading-tight mt-4">Find <span class="text-amber-400">Us</span></h1>
+            <p class="text-lg md:text-xl text-gray-300 max-w-xl font-normal leading-relaxed mt-4">Stop by the taproom, give us a call, or drop us a line. We're always down for a good conversation and a better pour.</p>
+            <div class="flex flex-wrap gap-6 mt-8">
+              <span class="text-sm text-gray-300 flex items-center gap-2"><svg class="w-5 h-5 text-amber-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>404 Brewhouse Lane, Portland, OR 97201</span>
+              <span class="text-sm text-gray-300 flex items-center gap-2"><svg class="w-5 h-5 text-amber-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+15035550199" class="hover:text-amber-400 transition">(503) 555-0199</a></span>
+              <span class="text-sm text-gray-300 flex items-center gap-2"><svg class="w-5 h-5 text-amber-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:hello@hopshaven.com" class="hover:text-amber-400 transition">hello@hopshaven.com</a></span>
+            </div>
+          </div>
+          <div class="lg:col-span-2">
+            <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+              <h3 class="text-amber-300 font-heading text-xl font-medium">Taproom Hours</h3>
+              <div class="mt-4 space-y-2.5 text-sm">
+                <div class="flex justify-between text-gray-200"><span class="font-medium">Mon - Thu</span><span>3:00 PM - 10:00 PM</span></div>
+                <div class="flex justify-between text-gray-200"><span class="font-medium">Friday</span><span>3:00 PM - 12:00 AM</span></div>
+                <div class="flex justify-between text-gray-200"><span class="font-medium">Saturday</span><span>12:00 PM - 12:00 AM</span></div>
+                <div class="flex justify-between text-gray-200"><span class="font-medium">Sunday</span><span>12:00 PM - 8:00 PM</span></div>
+              </div>
+              <div class="mt-5 pt-4 border-t border-white/20">
+                <p class="text-xs text-amber-300 uppercase tracking-wider font-medium">Happy Hour</p>
+                <p class="text-sm text-gray-300 mt-1">Mon-Fri 3-6 PM &mdash; $1 off pints</p>
+              </div>
+              <a href="#" onclick="return false;" class="mt-4 block w-full bg-amber-700 text-white text-center py-2.5 rounded-lg font-medium hover:bg-amber-600 transition text-sm">Call Now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INFO CARDS -->
+    <section class="py-20 px-4 max-w-7xl mx-auto">
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-white dark:bg-stone-900 rounded-2xl p-8 border border-amber-200/30 dark:border-stone-800 text-center hover:shadow-lg transition">
+          <div class="w-14 h-14 rounded-full bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center mx-auto">
+            <svg class="w-6 h-6 text-amber-700 dark:text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <h3 class="font-medium text-stone-800 dark:text-amber-100 mt-4 text-lg">Visit Us</h3>
+          <p class="text-sm text-gray-600 dark:text-stone-400 mt-2 leading-relaxed">
+            404 Brewhouse Lane<br>
+            Portland, OR 97201
+          </p>
+          <a href="https://maps.google.com/?q=404+Brewhouse+Lane+Portland+OR+97201" target="_blank" rel="noopener" class="text-amber-700 dark:text-amber-400 text-sm font-medium hover:underline inline-flex items-center gap-1 mt-3">Open in Maps <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg></a>
+        </div>
+        <div class="bg-white dark:bg-stone-900 rounded-2xl p-8 border border-amber-200/30 dark:border-stone-800 text-center hover:shadow-lg transition">
+          <div class="w-14 h-14 rounded-full bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center mx-auto">
+            <svg class="w-6 h-6 text-amber-700 dark:text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <h3 class="font-medium text-stone-800 dark:text-amber-100 mt-4 text-lg">Call Us</h3>
+          <p class="text-sm text-gray-600 dark:text-stone-400 mt-2">We're here during taproom hours.</p>
+          <a href="tel:+15035550199" class="text-amber-700 dark:text-amber-400 text-sm font-medium hover:underline inline-flex items-center gap-1 mt-3">(503) 555-0199</a>
+        </div>
+        <div class="bg-white dark:bg-stone-900 rounded-2xl p-8 border border-amber-200/30 dark:border-stone-800 text-center hover:shadow-lg transition">
+          <div class="w-14 h-14 rounded-full bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center mx-auto">
+            <svg class="w-6 h-6 text-amber-700 dark:text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <h3 class="font-medium text-stone-800 dark:text-amber-100 mt-4 text-lg">Email Us</h3>
+          <p class="text-sm text-gray-600 dark:text-stone-400 mt-2">We reply within 24 hours.</p>
+          <a href="mailto:hello@hopshaven.com" class="text-amber-700 dark:text-amber-400 text-sm font-medium hover:underline inline-flex items-center gap-1 mt-3">hello@hopshaven.com</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- MAP + FORM -->
+    <section class="py-20 px-4 bg-amber-100/60 dark:bg-stone-950">
+      <div class="max-w-7xl mx-auto">
+        <div class="mb-14 text-center">
+          <span class="text-amber-700 dark:text-amber-500 uppercase tracking-[0.2em] text-sm font-medium">Reach Out</span>
+          <h2 class="text-3xl md:text-4xl font-medium text-amber-900 dark:text-amber-400 font-heading mt-2">Send Us a Message</h2>
+        </div>
+        <div class="grid lg:grid-cols-2 gap-10 items-start">
+          <div class="rounded-2xl overflow-hidden shadow-lg border border-amber-200/30 dark:border-stone-800 h-[450px]">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2795.5!2d-122.6784!3d45.5155!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDXCsDMwJzU1LjgiTiAxMjLCsDQwJzQyLjIiVw!5e0!3m2!1sen!2sus!4v1" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Hops Haven Location"></iframe>
+          </div>
+          <form class="bg-white dark:bg-stone-900 rounded-2xl p-8 border border-amber-200/30 dark:border-stone-800 shadow-lg space-y-5">
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-medium uppercase tracking-wider text-stone-600 dark:text-stone-400 mb-1.5">Name</label>
+                <input type="text" class="w-full border border-amber-200/40 dark:border-stone-700 bg-amber-50/50 dark:bg-stone-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-600 dark:focus:ring-amber-500 dark:text-gray-200" placeholder="Your name">
+              </div>
+              <div>
+                <label class="block text-xs font-medium uppercase tracking-wider text-stone-600 dark:text-stone-400 mb-1.5">Email</label>
+                <input type="email" class="w-full border border-amber-200/40 dark:border-stone-700 bg-amber-50/50 dark:bg-stone-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-600 dark:focus:ring-amber-500 dark:text-gray-200" placeholder="you@example.com">
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs font-medium uppercase tracking-wider text-stone-600 dark:text-stone-400 mb-1.5">Subject</label>
+              <select class="w-full border border-amber-200/40 dark:border-stone-700 bg-amber-50/50 dark:bg-stone-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-600 dark:focus:ring-amber-500 dark:text-gray-200">
+                <option>General Inquiry</option>
+                <option>Private Event Booking</option>
+                <option>Membership Question</option>
+                <option>Wholesale / Distribution</option>
+                <option>Feedback</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-medium uppercase tracking-wider text-stone-600 dark:text-stone-400 mb-1.5">Message</label>
+              <textarea rows="4" class="w-full border border-amber-200/40 dark:border-stone-700 bg-amber-50/50 dark:bg-stone-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-600 dark:focus:ring-amber-500 dark:text-gray-200" placeholder="What's on your mind?"></textarea>
+            </div>
+            <button type="submit" class="w-full bg-amber-800 text-white py-3 rounded-lg font-medium hover:bg-amber-900 transition shadow-md">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOURS -->
+    <section class="py-20 px-4 max-w-7xl mx-auto">
+      <div class="grid md:grid-cols-2 gap-10 items-center">
+        <div>
+          <span class="text-amber-700 dark:text-amber-500 uppercase tracking-[0.2em] text-sm font-medium">Taproom Hours</span>
+          <h2 class="text-3xl md:text-4xl font-medium text-amber-900 dark:text-amber-400 font-heading mt-2">Come On By</h2>
+          <p class="text-gray-600 dark:text-gray-400 mt-3 leading-relaxed">We're pouring every day of the week. Late nights on weekends, cozy afternoons on weekdays.</p>
+          <div class="mt-6 space-y-3 text-sm">
+            <div class="flex justify-between border-b border-amber-200/30 dark:border-stone-800 pb-2"><span class="text-stone-700 dark:text-stone-300 font-medium">Monday - Thursday</span><span class="text-gray-500 dark:text-stone-400">3:00 PM - 10:00 PM</span></div>
+            <div class="flex justify-between border-b border-amber-200/30 dark:border-stone-800 pb-2"><span class="text-stone-700 dark:text-stone-300 font-medium">Friday</span><span class="text-gray-500 dark:text-stone-400">3:00 PM - 12:00 AM</span></div>
+            <div class="flex justify-between border-b border-amber-200/30 dark:border-stone-800 pb-2"><span class="text-stone-700 dark:text-stone-300 font-medium">Saturday</span><span class="text-gray-500 dark:text-stone-400">12:00 PM - 12:00 AM</span></div>
+            <div class="flex justify-between border-b border-amber-200/30 dark:border-stone-800 pb-2"><span class="text-stone-700 dark:text-stone-300 font-medium">Sunday</span><span class="text-gray-500 dark:text-stone-400">12:00 PM - 8:00 PM</span></div>
+          </div>
+        </div>
+        <div class="bg-white dark:bg-stone-900 rounded-2xl overflow-hidden border border-amber-200/30 dark:border-stone-800 shadow-lg">
+          <img src="assets/contact-taproom.jpg" class="w-full h-72 object-cover">
+          <div class="p-6 text-center">
+            <p class="text-sm text-gray-600 dark:text-stone-400">Happy Hour <span class="font-medium text-amber-700 dark:text-amber-400">Mon-Fri 3-6 PM</span> � $1 off all pints and half-off select appetizers.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOCIAL -->
+    <section class="py-16 px-4 bg-amber-100/60 dark:bg-stone-950 text-center">
+      <div class="max-w-2xl mx-auto">
+        <span class="text-amber-700 dark:text-amber-500 uppercase tracking-[0.2em] text-sm font-medium">Follow the Brew</span>
+        <h2 class="text-3xl md:text-4xl font-medium text-amber-900 dark:text-amber-400 font-heading mt-2">Stay Connected</h2>
+        <p class="text-gray-600 dark:text-gray-400 mt-3 mb-8">Catch behind-the-scenes brews, event announcements, and taproom shenanigans.</p>
+        <div class="flex justify-center gap-6">
+          <a href="https://instagram.com/hopshaven" target="_blank" rel="noopener" class="w-14 h-14 rounded-full bg-white dark:bg-stone-900 border border-amber-200/30 dark:border-stone-800 flex items-center justify-center text-stone-500 hover:text-amber-700 dark:hover:text-amber-400 hover:shadow-lg transition">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="https://facebook.com/hopshaven" target="_blank" rel="noopener" class="w-14 h-14 rounded-full bg-white dark:bg-stone-900 border border-amber-200/30 dark:border-stone-800 flex items-center justify-center text-stone-500 hover:text-amber-700 dark:hover:text-amber-400 hover:shadow-lg transition">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="https://twitter.com/hopshaven" target="_blank" rel="noopener" class="w-14 h-14 rounded-full bg-white dark:bg-stone-900 border border-amber-200/30 dark:border-stone-800 flex items-center justify-center text-stone-500 hover:text-amber-700 dark:hover:text-amber-400 hover:shadow-lg transition">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+          </a>
+          <a href="https://youtube.com/@hopshaven" target="_blank" rel="noopener" class="w-14 h-14 rounded-full bg-white dark:bg-stone-900 border border-amber-200/30 dark:border-stone-800 flex items-center justify-center text-stone-500 hover:text-amber-700 dark:hover:text-amber-400 hover:shadow-lg transition">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.94 2C5.12 20 12 20 12 20s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="js/footer.js"></script>
+</body>
+</html>

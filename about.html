@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | Hops Haven</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ['Playfair Display', 'serif'],
+            body: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            amber: {
+              50: '#fefaf0',
+              100: '#fdf3d7',
+              700: '#b45309',
+              800: '#92400e',
+              900: '#78350f',
+            },
+            stone: {
+              800: '#292524',
+              900: '#1c1917',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    h1, h2, h3, h4, h5, h6 { font-family: 'Playfair Display', Georgia, serif; }
+  </style>
+</head>
+<body class="bg-amber-50 dark:bg-stone-900 dark:text-gray-100 min-h-screen flex flex-col font-body pt-16">
+  <script src="js/theme.js"></script>
+  <script src="js/rtl.js"></script>
+  <script src="js/navbar.js"></script>
+
+  <main class="flex-1">
+
+    <!-- HERO -->
+    <section class="relative bg-stone-900 text-white min-h-[80vh] flex items-center overflow-hidden">
+      <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('assets/about-hero.jpg');"></div>
+      <div class="absolute inset-0 bg-gradient-to-br from-stone-900/90 via-stone-900/80 to-amber-950/80"></div>
+      <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-20">
+        <div class="max-w-3xl text-center mx-auto">
+          <span class="text-amber-400 uppercase tracking-[0.2em] text-sm font-medium block">About Hops Haven</span>
+          <h1 class="text-5xl md:text-6xl lg:text-7xl font-medium text-amber-100 font-heading leading-tight mt-4">Crafted with <span class="text-amber-400">Purpose</span></h1>
+          <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto font-normal leading-relaxed mt-6">We didn't set out to build a brewery. We set out to build a community around the art of craft beer � one batch, one pint, one conversation at a time.</p>
+          <div class="flex flex-wrap gap-6 justify-center mt-10">
+            <div class="text-center">
+              <span class="text-3xl font-medium text-amber-400 font-heading">2024</span>
+              <p class="text-xs text-gray-400 uppercase tracking-wide mt-1">Founded</p>
+            </div>
+            <div class="w-px bg-amber-700/40"></div>
+            <div class="text-center">
+              <span class="text-3xl font-medium text-amber-400 font-heading">16</span>
+              <p class="text-xs text-gray-400 uppercase tracking-wide mt-1">Rotating Taps</p>
+            </div>
+            <div class="w-px bg-amber-700/40"></div>
+            <div class="text-center">
+              <span class="text-3xl font-medium text-amber-400 font-heading">12</span>
+              <p class="text-xs text-gray-400 uppercase tracking-wide mt-1">Award Wins</p>
+            </div>
+            <div class="w-px bg-amber-700/40"></div>
+            <div class="text-center">
+              <span class="text-3xl font-medium text-amber-400 font-heading">100%</span>
+              <p class="text-xs text-gray-400 uppercase tracking-wide mt-1">Independent</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OUR STORY -->
+    <section id="story" class="py-20 px-4 max-w-7xl mx-auto">
+      <div class="grid md:grid-cols-5 gap-12 items-center">
+        <div class="md:col-span-3 space-y-6">
+          <span class="text-amber-700 dark:text-amber-500 uppercase tracking-[0.2em] text-sm font-medium">Our Story</span>
+          <h2 class="text-3xl md:text-4xl font-medium text-amber-900 dark:text-amber-400 font-heading">A Garage, a Dream, and a Whole Lot of Hops</h2>
+          <p class="text-gray-700 dark:text-gray-300 leading-relaxed">What started as a 5-gallon homebrew setup in a rented Portland garage quickly became an obsession. Founders Marco Villanueva and Elijah Park spent countless nights perfecting their recipes, studying water chemistry, and dreaming of a space where craft beer lovers could gather.</p>
+          <p class="text-gray-700 dark:text-gray-300 leading-relaxed">In the summer of 2024, that dream found a home in the city's Industrial District � a repurposed warehouse with exposed brick, raw timber beams, and enough room for a 10-barrel brewhouse. Today, Hops Haven stands as a testament to the idea that great beer is made with great intention.</p>
+          <div class="border-l-4 border-amber-700 pl-6 py-2">
+            <p class="text-lg italic text-stone-600 dark:text-stone-400">"We don't make beer for everyone. We make beer for those who care about what's in their glass."</p>
+            <p class="text-sm font-medium text-amber-800 dark:text-amber-400 mt-2">� Marco & Elijah, Co-Founders</p>
+          </div>
+        </div>
+        <div class="md:col-span-2 grid grid-cols-2 gap-3">
+          <img src="assets/about-brewing.jpg" class="rounded-xl w-full h-48 object-cover">
+          <img src="assets/about-taproom.jpg" class="rounded-xl w-full h-48 object-cover mt-6">
+          <img src="assets/about-beergarden.jpg" class="rounded-xl w-full h-48 object-cover -mt-3">
+          <img src="assets/about-barrels.jpg" class="rounded-xl w-full h-48 object-cover mt-3">
+        </div>
+      </div>
+    </section>
+
+    <!-- MEET THE TEAM -->
+    <section id="team" class="py-20 px-4 bg-amber-100/60 dark:bg-stone-950">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center max-w-2xl mx-auto mb-14">
+          <span class="text-amber-700 dark:text-amber-500 uppercase tracking-[0.2em] text-sm font-medium">The People</span>
+          <h2 class="text-3xl md:text-4xl font-medium text-amber-900 dark:text-amber-400 font-heading mt-3 mb-4">Meet the Brew Crew</h2>
+          <p class="text-gray-600 dark:text-gray-400">Behind every great pint is a team of passionate humans who live and breathe the craft.</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="bg-white dark:bg-stone-900 rounded-2xl overflow-hidden shadow-lg border border-amber-200/30 dark:border-stone-800 text-center">
+            <img src="assets/about-marco.jpg" class="w-full h-64 object-cover">
+            <div class="p-6">
+              <h3 class="text-xl font-medium text-stone-800 dark:text-amber-100">Marco Villanueva</h3>
+              <p class="text-sm text-amber-700 dark:text-amber-400 font-medium">Co-Founder & Head Brewer</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400 mt-3">Former chemical engineer turned brewmaster. Marco brings precision and passion to every recipe.</p>
+              <div class="flex justify-center gap-2 mt-4">
+                <span class="w-2 h-2 rounded-full bg-amber-600"></span>
+                <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                <span class="w-2 h-2 rounded-full bg-amber-700"></span>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white dark:bg-stone-900 rounded-2xl overflow-hidden shadow-lg border border-amber-200/30 dark:border-stone-800 text-center">
+            <img src="assets/about-elijah.jpg" class="w-full h-64 object-cover">
+            <div class="p-6">
+              <h3 class="text-xl font-medium text-stone-800 dark:text-amber-100">Elijah Park</h3>
+              <p class="text-sm text-amber-700 dark:text-amber-400 font-medium">Co-Founder & Operations</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400 mt-3">The organizational backbone. Elijah ensures the taproom runs smooth and the beer keeps flowing.</p>
+              <div class="flex justify-center gap-2 mt-4">
+                <span class="w-2 h-2 rounded-full bg-amber-600"></span>
+                <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                <span class="w-2 h-2 rounded-full bg-amber-700"></span>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white dark:bg-stone-900 rounded-2xl overflow-hidden shadow-lg border border-amber-200/30 dark:border-stone-800 text-center">
+            <img src="assets/about-sophia.jpg" class="w-full h-64 object-cover">
+            <div class="p-6">
+              <h3 class="text-xl font-medium text-stone-800 dark:text-amber-100">Sophia Reyes</h3>
+              <p class="text-sm text-amber-700 dark:text-amber-400 font-medium">Head of Hospitality</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400 mt-3">The face of the taproom. Sophia curates the beer list, trains the staff, and hosts every event.</p>
+              <div class="flex justify-center gap-2 mt-4">
+                <span class="w-2 h-2 rounded-full bg-amber-600"></span>
+                <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                <span class="w-2 h-2 rounded-full bg-amber-700"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OUR VALUES -->
+    <section class="py-20 px-4 max-w-7xl mx-auto">
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <span class="text-amber-700 dark:text-amber-500 uppercase tracking-[0.2em] text-sm font-medium">What We Stand For</span>
+        <h2 class="text-3xl md:text-4xl font-medium text-amber-900 dark:text-amber-400 font-heading mt-3 mb-4">The Principles That Guide Us</h2>
+      </div>
+      <div class="grid md:grid-cols-4 gap-6">
+        <div class="bg-white dark:bg-stone-800 border border-amber-200/50 dark:border-stone-700 rounded-xl p-6 text-center hover:shadow-lg transition">
+          <span class="text-4xl font-medium text-amber-700 font-heading">01</span>
+          <h3 class="text-lg font-medium text-stone-800 dark:text-amber-100 mt-3">Quality First</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">We never cut corners. Every batch is tested, tasted, and approved before it reaches your glass.</p>
+        </div>
+        <div class="bg-white dark:bg-stone-800 border border-amber-200/50 dark:border-stone-700 rounded-xl p-6 text-center hover:shadow-lg transition">
+          <span class="text-4xl font-medium text-amber-700 font-heading">02</span>
+          <h3 class="text-lg font-medium text-stone-800 dark:text-amber-100 mt-3">Community Rooted</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">We source locally, hire locally, and give back to the neighborhood that welcomed us.</p>
+        </div>
+        <div class="bg-white dark:bg-stone-800 border border-amber-200/50 dark:border-stone-700 rounded-xl p-6 text-center hover:shadow-lg transition">
+          <span class="text-4xl font-medium text-amber-700 font-heading">03</span>
+          <h3 class="text-lg font-medium text-stone-800 dark:text-amber-100 mt-3">Sustainable Craft</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Closed-loop water system, spent grain donated to local farms, and 100% recyclable packaging.</p>
+        </div>
+        <div class="bg-white dark:bg-stone-800 border border-amber-200/50 dark:border-stone-700 rounded-xl p-6 text-center hover:shadow-lg transition">
+          <span class="text-4xl font-medium text-amber-700 font-heading">04</span>
+          <h3 class="text-lg font-medium text-stone-800 dark:text-amber-100 mt-3">Fearless Innovation</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">From barrel-aged experiments to wild fermentation � we're not afraid to push boundaries.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section class="py-20 px-4 bg-amber-100/60 dark:bg-stone-900">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-14">
+          <span class="text-amber-700 dark:text-amber-500 uppercase tracking-[0.2em] text-sm font-medium">Our Journey</span>
+          <h2 class="text-3xl md:text-4xl font-medium text-amber-900 dark:text-amber-400 font-heading mt-3 mb-4">Key Milestones</h2>
+        </div>
+        <div class="space-y-0">
+          <div class="flex gap-6">
+            <div class="flex flex-col items-center">
+              <div class="w-4 h-4 rounded-full bg-amber-600 ring-4 ring-amber-100 dark:ring-stone-800 shrink-0"></div>
+              <div class="w-px flex-1 bg-amber-300 dark:bg-amber-800/50"></div>
+            </div>
+            <div class="pb-10">
+              <span class="text-sm font-medium text-amber-700 dark:text-amber-400">2019</span>
+              <h3 class="text-lg font-medium text-stone-800 dark:text-amber-100 mt-1">The First Brew</h3>
+              <p class="text-sm text-gray-600 dark:text-stone-400">Marco and Elijah brew their first batch in a one-car garage. A hazy IPA that was terrible � but they were hooked.</p>
+            </div>
+          </div>
+          <div class="flex gap-6">
+            <div class="flex flex-col items-center">
+              <div class="w-4 h-4 rounded-full bg-amber-600 ring-4 ring-amber-100 dark:ring-stone-800 shrink-0"></div>
+              <div class="w-px flex-1 bg-amber-300 dark:bg-amber-800/50"></div>
+            </div>
+            <div class="pb-10">
+              <span class="text-sm font-medium text-amber-700 dark:text-amber-400">2022</span>
+              <h3 class="text-lg font-medium text-stone-800 dark:text-amber-100 mt-1">Farmers Market Debut</h3>
+              <p class="text-sm text-gray-600 dark:text-stone-400">First public appearance at the Portland Farmers Market. Sold out in two hours and won "Best New Vendor."</p>
+            </div>
+          </div>
+          <div class="flex gap-6">
+            <div class="flex flex-col items-center">
+              <div class="w-4 h-4 rounded-full bg-amber-600 ring-4 ring-amber-100 dark:ring-stone-800 shrink-0"></div>
+              <div class="w-px flex-1 bg-amber-300 dark:bg-amber-800/50"></div>
+            </div>
+            <div class="pb-10">
+              <span class="text-sm font-medium text-amber-700 dark:text-amber-400">2024</span>
+              <h3 class="text-lg font-medium text-stone-800 dark:text-amber-100 mt-1">Grand Opening</h3>
+              <p class="text-sm text-gray-600 dark:text-stone-400">Hops Haven taproom opens its doors in the Industrial District. 400 people show up on day one.</p>
+            </div>
+          </div>
+          <div class="flex gap-6">
+            <div class="flex flex-col items-center">
+              <div class="w-4 h-4 rounded-full bg-amber-600 ring-4 ring-amber-100 dark:ring-stone-800 shrink-0"></div>
+            </div>
+            <div>
+              <span class="text-sm font-medium text-amber-700 dark:text-amber-400">2025</span>
+              <h3 class="text-lg font-medium text-stone-800 dark:text-amber-100 mt-1">National Recognition</h3>
+              <p class="text-sm text-gray-600 dark:text-stone-400">Three medal wins at the Great American Beer Festival. Mug Club membership hits 2,000 members.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SUSTAINABILITY PLEDGE -->
+    <section class="py-20 px-4 bg-amber-100/60 dark:bg-stone-950">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <span class="text-amber-700 dark:text-amber-500 uppercase tracking-[0.2em] text-sm font-medium">Sustainability</span>
+            <h2 class="text-3xl md:text-4xl font-medium text-amber-900 dark:text-amber-400 font-heading mt-3 mb-6">Brewing with the Planet in Mind</h2>
+            <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">We believe great beer shouldn't cost the earth. Every decision we make � from energy-efficient brewing equipment to reusable growler programs � is designed to minimize our environmental footprint.</p>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-white dark:bg-stone-800 p-4 rounded-lg border border-amber-200/30 dark:border-stone-700">
+                <span class="text-2xl font-medium text-amber-700 font-heading">85%</span>
+                <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Water recycling rate</p>
+              </div>
+              <div class="bg-white dark:bg-stone-800 p-4 rounded-lg border border-amber-200/30 dark:border-stone-700">
+                <span class="text-2xl font-medium text-amber-700 font-heading">12K</span>
+                <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Lbs grain donated yearly</p>
+              </div>
+              <div class="bg-white dark:bg-stone-800 p-4 rounded-lg border border-amber-200/30 dark:border-stone-700">
+                <span class="text-2xl font-medium text-amber-700 font-heading">100%</span>
+                <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Renewable energy</p>
+              </div>
+              <div class="bg-white dark:bg-stone-800 p-4 rounded-lg border border-amber-200/30 dark:border-stone-700">
+                <span class="text-2xl font-medium text-amber-700 font-heading">0</span>
+                <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Landfill waste</p>
+              </div>
+            </div>
+          </div>
+          <img src="assets/about-sustainable.jpg" class="rounded-2xl shadow-xl w-full h-80 object-cover">
+        </div>
+      </div>
+    </section>
+
+    <!-- VISIT CTA -->
+    <section class="py-20 px-4 max-w-7xl mx-auto text-center">
+      <div class="max-w-2xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-medium text-amber-900 dark:text-amber-400 font-heading mb-4">Come See What We're About</h2>
+        <p class="text-gray-600 dark:text-gray-400 mb-8">The taproom is open six days a week. Bring your friends, bring your dog, and bring your curiosity.</p>
+        <div class="flex flex-wrap gap-4 justify-center">
+          <a href="contact.html" class="bg-amber-800 text-white px-8 py-3.5 rounded-md font-medium hover:bg-amber-900 transition shadow-lg">Plan Your Visit</a>
+          <a href="membership.html" class="bg-transparent border-2 border-amber-700 text-amber-800 dark:text-amber-400 dark:border-amber-500 px-8 py-3.5 rounded-md font-medium hover:bg-amber-700 hover:text-white transition">Join the Mug Club</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="js/footer.js"></script>
+</body>
+</html>

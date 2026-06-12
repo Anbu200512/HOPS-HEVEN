@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Membership | Hops Haven Mug Club</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ['Playfair Display', 'serif'],
+            body: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            amber: {
+              50: '#fefaf0',
+              100: '#fdf3d7',
+              700: '#b45309',
+              800: '#92400e',
+              900: '#78350f',
+            },
+            stone: {
+              800: '#292524',
+              900: '#1c1917',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    h1, h2, h3, h4, h5, h6 { font-family: 'Playfair Display', Georgia, serif; }
+  </style>
+</head>
+<body class="bg-amber-50 dark:bg-stone-900 dark:text-gray-100 min-h-screen flex flex-col font-body pt-16">
+  <script src="js/theme.js"></script>
+  <script src="js/rtl.js"></script>
+  <script src="js/navbar.js"></script>
+
+  <main class="flex-1">
+
+    <!-- HERO -->
+    <section class="relative bg-stone-900 text-white min-h-[55vh] flex items-center overflow-hidden">
+      <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('assets/membership-hero.jpg');"></div>
+      <div class="absolute inset-0 bg-gradient-to-br from-stone-900/90 via-stone-900/80 to-amber-950/80"></div>
+      <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-20">
+        <div class="max-w-3xl text-center mx-auto">
+          <span class="text-amber-400 uppercase tracking-[0.2em] text-sm font-medium block">Mug Club</span>
+          <h1 class="text-5xl md:text-6xl lg:text-7xl font-medium text-amber-100 font-heading leading-tight mt-4">Join the <span class="text-amber-400">Inner Circle</span></h1>
+          <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto font-normal leading-relaxed mt-6">More than a loyalty program � it's a brotherhood of craft beer lovers. Exclusive pours, vault access, and a community that cheers together.</p>
+          <div class="flex flex-wrap gap-6 justify-center mt-10">
+            <div class="text-center">
+              <span class="text-3xl font-medium text-amber-400 font-heading">2,000+</span>
+              <p class="text-xs text-gray-400 uppercase tracking-wide mt-1">Active Members</p>
+            </div>
+            <div class="w-px bg-amber-700/40"></div>
+            <div class="text-center">
+              <span class="text-3xl font-medium text-amber-400 font-heading">4</span>
+              <p class="text-xs text-gray-400 uppercase tracking-wide mt-1">Membership Tiers</p>
+            </div>
+            <div class="w-px bg-amber-700/40"></div>
+            <div class="text-center">
+              <span class="text-3xl font-medium text-amber-400 font-heading">100%</span>
+              <p class="text-xs text-gray-400 uppercase tracking-wide mt-1">Member Satisfaction</p>
+            </div>
+            <div class="w-px bg-amber-700/40"></div>
+            <div class="text-center">
+              <span class="text-3xl font-medium text-amber-400 font-heading">50+</span>
+              <p class="text-xs text-gray-400 uppercase tracking-wide mt-1">Vault Releases</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIERS -->
+    <section class="py-20 px-4 max-w-7xl mx-auto">
+      <div class="mb-14 text-center">
+        <span class="text-amber-700 dark:text-amber-500 uppercase tracking-[0.2em] text-sm font-medium">Choose Your Path</span>
+        <h2 class="text-3xl md:text-4xl font-medium text-amber-900 dark:text-amber-400 font-heading mt-2">Membership Tiers</h2>
+        <p class="text-gray-600 dark:text-gray-400 mt-2 max-w-xl mx-auto">Pick the tier that fits your craft � from casual sipper to committed connoisseur.</p>
+      </div>
+      <div class="grid md:grid-cols-4 gap-6">
+        <div class="bg-white dark:bg-stone-900 rounded-2xl p-6 border border-amber-200/30 dark:border-stone-800 flex flex-col text-center hover:shadow-lg transition">
+          <span class="text-xs text-amber-700 dark:text-amber-400 font-medium uppercase tracking-wider">Digital</span>
+          <span class="text-4xl font-medium text-stone-800 dark:text-amber-100 font-heading mt-2">Free</span>
+          <p class="text-xs text-gray-500 dark:text-stone-400 mt-1">Get started instantly</p>
+          <ul class="mt-6 space-y-2.5 text-sm text-left text-gray-600 dark:text-stone-400 flex-1">
+            <li class="flex items-center gap-2"><svg class="w-4 h-4 text-amber-600 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path></svg> Digital membership card</li>
+            <li class="flex items-center gap-2"><svg class="w-4 h-4 text-amber-600 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path></svg> Birthday free pint</li>
+            <li class="flex items-center gap-2"><svg class="w-4 h-4 text-amber-600 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path></svg> Event early access</li>
+            <li class="flex items-center gap-2"><svg class="w-4 h-4 text-amber-600 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path></svg> Member newsletter</li>
+          </ul>
+          <button class="mt-6 w-full bg-amber-800 text-white py-2.5 rounded-lg font-medium hover:bg-amber-900 transition">Join Free</button>
+        </div>
+        <div class="bg-white dark:bg-stone-900 rounded-2xl p-6 border border-amber-200/30 dark:border-stone-800 flex flex-col text-center hover:shadow-lg transition">
+          <span class="text-xs text-amber-700 dark:text-amber-400 font-medium uppercase tracking-wider">Bronze</span>
+          <span class="text-4xl font-medium text-stone-800 dark:text-amber-100 font-heading mt-2">$5</span>
+          <p class="text-xs text-gray-500 dark:text-stone-400 mt-1">per month</p>
+          <ul class="mt-6 space-y-2.5 text-sm text-left text-gray-600 dark:text-stone-400 flex-1">
+            <li class="flex items-center gap-2"><svg class="w-4 h-4 text-amber-600 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path></svg> Everything in Digital</li>
+            <li class="flex items-center gap-2"><svg class="w-4 h-4 text-amber-600 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path></svg> Engraved mug on the rack</li>
+            <li class="flex items-center gap-2"><svg class="w-4 h-4 text-amber-600 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path></svg> Exclusive mug club events</li>
+          </ul>
+          <button class="mt-6 w-full bg-amber-800 text-white py-2.5 rounded-lg font-medium hover:bg-amber-900 transition">Go Bronze</button>
+        </div>
+        <div class="bg-white dark:bg-stone-900 rounded-2xl p-6 border-2 border-amber-600 dark:border-amber-500 flex flex-col text-center hover:shadow-xl transition relative">
+          <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-700 text-white text-xs px-4 py-1 rounded-full font-medium">Popular</span>
+          <span class="text-xs text-amber-700 dark:text-amber-400 font-medium uppercase tracking-wider mt-2">Gold</span>
+          <span class="text-4xl font-medium text-stone-800 dark:text-amber-100 font-heading mt-2">$15</span>
+          <p class="text-xs text-gray-500 dark:text-stone-400 mt-1">per month</p>
+          <ul class="mt-6 space-y-2.5 text-sm text-left text-gray-600 dark:text-stone-400 flex-1">
+            <li class="flex items-center gap-2"><svg class="w-4 h-4 text-amber-600 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path></svg> Everything in Bronze</li>
+            <li class="flex items-center gap-2"><svg class="w-4 h-4 text-amber-600 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path></svg> 20oz pours for 16oz price</li>
+            <li class="flex items-center gap-2"><svg class="w-4 h-4 text-amber-600 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path></svg> Quarterly vault bottle release</li>
+            <li class="flex items-center gap-2"><svg class="w-4 h-4 text-amber-600 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path></svg> Brewery tour + tasting for two</li>
+          </ul>
+          <button class="mt-6 w-full bg-amber-700 text-white py-2.5 rounded-lg font-medium hover:bg-amber-800 transition">Become Gold</button>
+        </div>
+        <div class="bg-white dark:bg-stone-900 rounded-2xl p-6 border border-amber-200/30 dark:border-stone-800 flex flex-col text-center hover:shadow-lg transition">
+          <span class="text-xs text-amber-700 dark:text-amber-400 font-medium uppercase tracking-wider">Platinum</span>
+          <span class="text-4xl font-medium text-stone-800 dark:text-amber-100 font-heading mt-2">$30</span>
+          <p class="text-xs text-gray-500 dark:text-stone-400 mt-1">per month</p>
+          <ul class="mt-6 space-y-2.5 text-sm text-left text-gray-600 dark:text-stone-400 flex-1">
+            <li class="flex items-center gap-2"><svg class="w-4 h-4 text-amber-600 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path></svg> Everything in Gold</li>
+            <li class="flex items-center gap-2"><svg class="w-4 h-4 text-amber-600 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path></svg> Monthly bottle shipment</li>
+            <li class="flex items-center gap-2"><svg class="w-4 h-4 text-amber-600 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path></svg> Brew with the brewer session</li>
+            <li class="flex items-center gap-2"><svg class="w-4 h-4 text-amber-600 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path></svg> VIP access + guest pass</li>
+          </ul>
+          <button class="mt-6 w-full bg-amber-800 text-white py-2.5 rounded-lg font-medium hover:bg-amber-900 transition">Go Platinum</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PERKS COMPARISON -->
+    <section class="py-20 px-4 bg-amber-100/60 dark:bg-stone-950">
+      <div class="max-w-7xl mx-auto">
+        <div class="mb-14 text-center">
+          <span class="text-amber-700 dark:text-amber-500 uppercase tracking-[0.2em] text-sm font-medium">Compare</span>
+          <h2 class="text-3xl md:text-4xl font-medium text-amber-900 dark:text-amber-400 font-heading mt-2">What You Get</h2>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm bg-white dark:bg-stone-900 rounded-2xl overflow-hidden shadow-lg border border-amber-200/30 dark:border-stone-800">
+            <thead>
+              <tr class="bg-amber-800 text-white">
+                <th class="p-4 text-left font-medium">Perks</th>
+                <th class="p-4 text-center font-medium">Digital</th>
+                <th class="p-4 text-center font-medium">Bronze</th>
+                <th class="p-4 text-center font-medium bg-amber-700">Gold</th>
+                <th class="p-4 text-center font-medium">Platinum</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-amber-200/30 dark:divide-stone-800">
+              <tr><td class="p-4 text-stone-700 dark:text-stone-300">Digital Membership Card</td><td class="p-4 text-center text-amber-600">&#10003;</td><td class="p-4 text-center text-amber-600">&#10003;</td><td class="p-4 text-center text-amber-600 bg-amber-50/50 dark:bg-stone-800/50">&#10003;</td><td class="p-4 text-center text-amber-600">&#10003;</td></tr>
+              <tr><td class="p-4 text-stone-700 dark:text-stone-300">Birthday Free Pint</td><td class="p-4 text-center text-amber-600">&#10003;</td><td class="p-4 text-center text-amber-600">&#10003;</td><td class="p-4 text-center text-amber-600 bg-amber-50/50 dark:bg-stone-800/50">&#10003;</td><td class="p-4 text-center text-amber-600">&#10003;</td></tr>
+              <tr><td class="p-4 text-stone-700 dark:text-stone-300">Event Early Access</td><td class="p-4 text-center text-amber-600">&#10003;</td><td class="p-4 text-center text-amber-600">&#10003;</td><td class="p-4 text-center text-amber-600 bg-amber-50/50 dark:bg-stone-800/50">&#10003;</td><td class="p-4 text-center text-amber-600">&#10003;</td></tr>
+              <tr><td class="p-4 text-stone-700 dark:text-stone-300">Engraved Mug on Rack</td><td class="p-4 text-center text-gray-300 dark:text-stone-700">�</td><td class="p-4 text-center text-amber-600">&#10003;</td><td class="p-4 text-center text-amber-600 bg-amber-50/50 dark:bg-stone-800/50">&#10003;</td><td class="p-4 text-center text-amber-600">&#10003;</td></tr>
+              <tr><td class="p-4 text-stone-700 dark:text-stone-300">10% Off All Purchases</td><td class="p-4 text-center text-gray-300 dark:text-stone-700">�</td><td class="p-4 text-center text-amber-600">&#10003;</td><td class="p-4 text-center text-amber-600 bg-amber-50/50 dark:bg-stone-800/50">&#10003;</td><td class="p-4 text-center text-amber-600">&#10003;</td></tr>
+              <tr><td class="p-4 text-stone-700 dark:text-stone-300">20oz Pour for 16oz Price</td><td class="p-4 text-center text-gray-300 dark:text-stone-700">�</td><td class="p-4 text-center text-gray-300 dark:text-stone-700">�</td><td class="p-4 text-center text-amber-600 bg-amber-50/50 dark:bg-stone-800/50">&#10003;</td><td class="p-4 text-center text-amber-600">&#10003;</td></tr>
+              <tr><td class="p-4 text-stone-700 dark:text-stone-300">Quarterly Vault Release</td><td class="p-4 text-center text-gray-300 dark:text-stone-700">�</td><td class="p-4 text-center text-gray-300 dark:text-stone-700">�</td><td class="p-4 text-center text-amber-600 bg-amber-50/50 dark:bg-stone-800/50">&#10003;</td><td class="p-4 text-center text-amber-600">&#10003;</td></tr>
+              <tr><td class="p-4 text-stone-700 dark:text-stone-300">Brewery Tour for Two</td><td class="p-4 text-center text-gray-300 dark:text-stone-700">�</td><td class="p-4 text-center text-gray-300 dark:text-stone-700">�</td><td class="p-4 text-center text-amber-600 bg-amber-50/50 dark:bg-stone-800/50">&#10003;</td><td class="p-4 text-center text-amber-600">&#10003;</td></tr>
+              <tr><td class="p-4 text-stone-700 dark:text-stone-300">Monthly Bottle Shipment</td><td class="p-4 text-center text-gray-300 dark:text-stone-700">�</td><td class="p-4 text-center text-gray-300 dark:text-stone-700">�</td><td class="p-4 text-center text-gray-300 dark:text-stone-700 bg-amber-50/50 dark:bg-stone-800/50">�</td><td class="p-4 text-center text-amber-600">&#10003;</td></tr>
+              <tr><td class="p-4 text-stone-700 dark:text-stone-300">Brew with the Brewer</td><td class="p-4 text-center text-gray-300 dark:text-stone-700">�</td><td class="p-4 text-center text-gray-300 dark:text-stone-700">�</td><td class="p-4 text-center text-gray-300 dark:text-stone-700 bg-amber-50/50 dark:bg-stone-800/50">�</td><td class="p-4 text-center text-amber-600">&#10003;</td></tr>
+              <tr><td class="p-4 text-stone-700 dark:text-stone-300">VIP Guest Pass</td><td class="p-4 text-center text-gray-300 dark:text-stone-700">�</td><td class="p-4 text-center text-gray-300 dark:text-stone-700">�</td><td class="p-4 text-center text-gray-300 dark:text-stone-700 bg-amber-50/50 dark:bg-stone-800/50">�</td><td class="p-4 text-center text-amber-600">&#10003;</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="py-20 px-4 max-w-7xl mx-auto">
+      <div class="mb-14 text-center">
+        <span class="text-amber-700 dark:text-amber-500 uppercase tracking-[0.2em] text-sm font-medium">Wall of Fame</span>
+        <h2 class="text-3xl md:text-4xl font-medium text-amber-900 dark:text-amber-400 font-heading mt-2">What Members Say</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-white dark:bg-stone-800 rounded-xl p-6 border border-amber-200/30 dark:border-stone-700">
+          <div class="flex items-center gap-3 mb-4">
+            <img src="assets/membership-jamie.jpg" class="w-12 h-12 rounded-full object-cover">
+            <div>
+              <h4 class="font-medium text-stone-800 dark:text-amber-100 text-sm">Jamie D.</h4>
+              <span class="text-xs text-amber-700 dark:text-amber-400">Gold Member � 2 yrs</span>
+            </div>
+          </div>
+          <p class="text-sm text-gray-600 dark:text-stone-400 italic">"The Gold tier paid for itself in three months. The 20oz pours alone are worth it, and the vault releases are incredible."</p>
+        </div>
+        <div class="bg-white dark:bg-stone-800 rounded-xl p-6 border border-amber-200/30 dark:border-stone-700">
+          <div class="flex items-center gap-3 mb-4">
+            <img src="assets/membership-marcus.jpg" class="w-12 h-12 rounded-full object-cover">
+            <div>
+              <h4 class="font-medium text-stone-800 dark:text-amber-100 text-sm">Marcus T.</h4>
+              <span class="text-xs text-amber-700 dark:text-amber-400">Platinum Member � 1 yr</span>
+            </div>
+          </div>
+          <p class="text-sm text-gray-600 dark:text-stone-400 italic">"Brewing with Marco was a bucket list experience. The Platinum perks are unmatched � especially the monthly bottle shipments."</p>
+        </div>
+        <div class="bg-white dark:bg-stone-800 rounded-xl p-6 border border-amber-200/30 dark:border-stone-700">
+          <div class="flex items-center gap-3 mb-4">
+            <img src="assets/membership-sophia.jpg" class="w-12 h-12 rounded-full object-cover">
+            <div>
+              <h4 class="font-medium text-stone-800 dark:text-amber-100 text-sm">Sophia K.</h4>
+              <span class="text-xs text-amber-700 dark:text-amber-400">Bronze Member � 6 mo</span>
+            </div>
+          </div>
+          <p class="text-sm text-gray-600 dark:text-stone-400 italic">"Even the Bronze tier is fantastic. Having my own mug on the rack makes every visit feel special. The discount adds up fast."</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-20 px-4 bg-amber-100/60 dark:bg-stone-950">
+      <div class="max-w-3xl mx-auto">
+        <div class="mb-14 text-center">
+          <span class="text-amber-700 dark:text-amber-500 uppercase tracking-[0.2em] text-sm font-medium">Questions?</span>
+          <h2 class="text-3xl md:text-4xl font-medium text-amber-900 dark:text-amber-400 font-heading mt-2">Frequently Asked</h2>
+        </div>
+        <div class="space-y-4">
+          <details class="bg-white dark:bg-stone-900 rounded-xl p-5 border border-amber-200/30 dark:border-stone-800 group">
+            <summary class="font-medium text-stone-800 dark:text-amber-100 cursor-pointer list-none flex justify-between items-center">Can I upgrade or downgrade my tier? <svg class="w-5 h-5 text-amber-600 group-open:rotate-180 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary>
+            <p class="text-sm text-gray-600 dark:text-stone-400 mt-3 leading-relaxed">Absolutely. You can change your tier at any time from your dashboard. Upgrades take effect immediately; downgrades apply at the start of the next billing cycle.</p>
+          </details>
+          <details class="bg-white dark:bg-stone-900 rounded-xl p-5 border border-amber-200/30 dark:border-stone-800 group">
+            <summary class="font-medium text-stone-800 dark:text-amber-100 cursor-pointer list-none flex justify-between items-center">How do I access vault releases? <svg class="w-5 h-5 text-amber-600 group-open:rotate-180 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary>
+            <p class="text-sm text-gray-600 dark:text-stone-400 mt-3 leading-relaxed">Gold and Platinum members receive email notifications when a vault release goes live. Reservations are made through your member dashboard.</p>
+          </details>
+          <details class="bg-white dark:bg-stone-900 rounded-xl p-5 border border-amber-200/30 dark:border-stone-800 group">
+            <summary class="font-medium text-stone-800 dark:text-amber-100 cursor-pointer list-none flex justify-between items-center">Can I gift a membership? <svg class="w-5 h-5 text-amber-600 group-open:rotate-180 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary>
+            <p class="text-sm text-gray-600 dark:text-stone-400 mt-3 leading-relaxed">Yes! Gift memberships are available for all tiers. Purchase one at the taproom or through our website with a personalized message.</p>
+          </details>
+          <details class="bg-white dark:bg-stone-900 rounded-xl p-5 border border-amber-200/30 dark:border-stone-800 group">
+            <summary class="font-medium text-stone-800 dark:text-amber-100 cursor-pointer list-none flex justify-between items-center">What happens to my mug if I cancel? <svg class="w-5 h-5 text-amber-600 group-open:rotate-180 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary>
+            <p class="text-sm text-gray-600 dark:text-stone-400 mt-3 leading-relaxed">Your engraved mug stays on the rack for 30 days after cancellation. Reactivate within that window and it's ready to go. After 30 days, it's retired.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-20 px-4 relative overflow-hidden text-center">
+      <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('assets/membership-cta.jpg');"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-stone-900/85 via-stone-900/80 to-amber-950/85"></div>
+      <div class="relative z-10 max-w-2xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-medium text-amber-200 dark:text-amber-200 font-heading mb-4">Ready to Join?</h2>
+        <p class="text-gray-300 dark:text-gray-300 mb-8">Sign up at the taproom or create your account online. Your first pint is on us.</p>
+        <div class="flex flex-wrap gap-4 justify-center">
+          <a href="signup.html" class="bg-amber-800 text-white px-8 py-3.5 rounded-md font-medium hover:bg-amber-900 transition shadow-lg">Create Account</a>
+          <a href="contact.html" class="bg-transparent border-2 border-amber-700 text-amber-800 dark:text-amber-400 dark:border-amber-500 px-8 py-3.5 rounded-md font-medium hover:bg-amber-700 hover:text-white transition">Visit the Taproom</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="js/footer.js"></script>
+</body>
+</html>

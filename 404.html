@@ -1,0 +1,181 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - Beer Not Found | Hops Haven</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ['Playfair Display', 'serif'],
+            body: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            amber: {
+              50: '#fefaf0',
+              100: '#fdf3d7',
+              700: '#b45309',
+              800: '#92400e',
+              900: '#78350f',
+            },
+            stone: {
+              800: '#292524',
+              900: '#1c1917',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    h1, h2, h3, h4, h5, h6 { font-family: 'Playfair Display', Georgia, serif; }
+
+    @keyframes foamFade {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.7; }
+    }
+    .foam-bubble { animation: foamFade 2.5s ease-in-out infinite; }
+    .foam-bubble:nth-child(1) { animation-delay: 0s; }
+    .foam-bubble:nth-child(2) { animation-delay: 0.8s; }
+    .foam-bubble:nth-child(3) { animation-delay: 1.6s; }
+
+    @keyframes drip {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(12px); opacity: 0; }
+    }
+    .beer-drip { animation: drip 2s ease-in-out infinite; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+    .mug-float { animation: float 4s ease-in-out infinite; }
+
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(24px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in-up { animation: fadeInUp 0.7s ease-out both; }
+    .fade-in-up-d1 { animation: fadeInUp 0.7s ease-out 0.15s both; }
+    .fade-in-up-d2 { animation: fadeInUp 0.7s ease-out 0.3s both; }
+    .fade-in-up-d3 { animation: fadeInUp 0.7s ease-out 0.45s both; }
+    .fade-in-up-d4 { animation: fadeInUp 0.7s ease-out 0.6s both; }
+
+    @keyframes shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    .btn-shimmer {
+      background-size: 200% auto;
+      animation: shimmer 3s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="bg-amber-50 dark:bg-stone-900 dark:text-gray-100 min-h-screen flex flex-col font-body">
+  <script src="js/theme.js"></script>
+  <script src="js/rtl.js"></script>
+
+  <main class="flex-1 flex items-center justify-center px-4 py-16">
+    <div class="max-w-lg mx-auto text-center">
+
+      <!-- Beer Mug SVG Illustration -->
+      <div class="mb-8 inline-block relative mug-float">
+        <svg width="200" height="240" viewBox="0 0 200 240" fill="none" xmlns="http://www.w3.org/2000/svg" class="drop-shadow-xl">
+          <!-- Glass body -->
+          <path d="M50 30 L55 190 C55 200 60 210 70 210 L130 210 C140 210 145 200 145 190 L150 30 Z"
+                fill="rgba(251,191,36,0.08)" stroke="currentColor" stroke-width="2"
+                class="text-amber-700/60 dark:text-amber-400/50"/>
+          <!-- Beer fill -->
+          <path d="M55 80 L58 185 C58 192 63 198 70 198 L130 198 C137 198 142 192 142 185 L145 80 Z"
+                fill="currentColor"
+                class="text-amber-700/70 dark:text-amber-500/60"/>
+          <!-- Glass rim -->
+          <rect x="45" y="22" width="110" height="14" rx="4"
+                fill="currentColor"
+                class="text-amber-700/40 dark:text-amber-400/40"/>
+          <!-- Foam head -->
+          <ellipse cx="100" cy="75" rx="43" ry="18"
+                   fill="currentColor"
+                   class="text-amber-100 dark:text-amber-200/70"/>
+          <!-- Foam bubbles -->
+          <circle cx="82" cy="68" r="5" fill="white" class="foam-bubble" opacity="0.6"/>
+          <circle cx="100" cy="62" r="4" fill="white" class="foam-bubble" opacity="0.5"/>
+          <circle cx="118" cy="70" r="3.5" fill="white" class="foam-bubble" opacity="0.4"/>
+          <circle cx="91" cy="58" r="3" fill="white" class="foam-bubble" opacity="0.3"/>
+          <circle cx="109" cy="66" r="4.5" fill="white" class="foam-bubble" opacity="0.5"/>
+          <!-- Handle -->
+          <path d="M150 70 C175 70 180 100 175 120 C170 140 160 155 150 155"
+                fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"
+                class="text-amber-700/60 dark:text-amber-400/50"/>
+          <!-- Drip from handle -->
+          <circle cx="165" cy="170" r="3" fill="currentColor" class="beer-drip text-amber-700/60 dark:text-amber-400/50"/>
+
+          <!-- 404 text integrated -->
+          <text x="100" y="155" text-anchor="middle"
+                font-family="'Playfair Display', Georgia, serif" font-size="34" font-weight="900"
+                fill="currentColor"
+                class="text-amber-800 dark:text-amber-300">404</text>
+        </svg>
+      </div>
+
+      <!-- Error heading -->
+      <h1 class="text-4xl sm:text-5xl font-medium text-amber-800 dark:text-amber-400 font-heading leading-tight fade-in-up">
+        This Beer Has Been Tapped Out
+      </h1>
+      <p class="text-gray-600 dark:text-gray-400 text-lg mt-4 leading-relaxed fade-in-up-d1">
+        Looks like you've had one too many &mdash; this page doesn't exist. The good news is our taproom is always open.
+      </p>
+
+      <!-- Fun beer stats -->
+      <div class="flex items-center justify-center gap-6 mt-8 text-sm fade-in-up-d2">
+        <div class="text-center">
+          <span class="text-2xl font-medium text-amber-700 dark:text-amber-400 font-heading">0</span>
+          <p class="text-xs text-gray-500 dark:text-stone-400 uppercase tracking-wide mt-0.5">Pages Found</p>
+        </div>
+        <div class="w-px h-10 bg-amber-300/50 dark:bg-amber-700/40"></div>
+        <div class="text-center">
+          <span class="text-2xl font-medium text-amber-700 dark:text-amber-400 font-heading">16</span>
+          <p class="text-xs text-gray-500 dark:text-stone-400 uppercase tracking-wide mt-0.5">Beers on Tap</p>
+        </div>
+        <div class="w-px h-10 bg-amber-300/50 dark:bg-amber-700/40"></div>
+        <div class="text-center">
+          <span class="text-2xl font-medium text-amber-700 dark:text-amber-400 font-heading">∞</span>
+          <p class="text-xs text-gray-500 dark:text-stone-400 uppercase tracking-wide mt-0.5">Good Vibes</p>
+        </div>
+      </div>
+
+      <!-- Taproom button -->
+      <a href="index.html"
+         class="inline-flex items-center gap-2.5 mt-10 bg-amber-700 hover:bg-amber-800 text-white px-8 py-4 rounded-xl font-medium text-base transition-all duration-300 shadow-lg shadow-amber-900/20 hover:shadow-amber-900/40 hover:-translate-y-0.5 fade-in-up-d3 btn-shimmer">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 11h1a3 3 0 0 1 0 6h-1"/>
+          <path d="M9 5h6"/>
+          <path d="M9 5v2a3 3 0 0 0 3 3h0a3 3 0 0 0 3-3V5"/>
+          <path d="M9 11v8a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-8"/>
+        </svg>
+        Take Me to the Taproom
+      </a>
+
+      <!-- Helpful links -->
+      <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mt-8 text-sm fade-in-up-d4">
+        <a href="index.html" class="text-amber-700 dark:text-amber-400 hover:text-amber-800 dark:hover:text-amber-300 underline underline-offset-4 decoration-amber-400/40 hover:decoration-amber-600 transition-all">Home</a>
+        <a href="beers.html" class="text-stone-500 dark:text-stone-400 hover:text-amber-700 dark:hover:text-amber-400 transition-colors">What's on Tap</a>
+        <a href="events.html" class="text-stone-500 dark:text-stone-400 hover:text-amber-700 dark:hover:text-amber-400 transition-colors">Events</a>
+        <a href="contact.html" class="text-stone-500 dark:text-stone-400 hover:text-amber-700 dark:hover:text-amber-400 transition-colors">Contact Us</a>
+      </div>
+
+    </div>
+  </main>
+
+</body>
+</html>
